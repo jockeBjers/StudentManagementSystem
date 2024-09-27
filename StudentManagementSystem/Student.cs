@@ -31,7 +31,7 @@ namespace StudentManagementSystem
             }
         }
 
-        // Parameterless constructor for JSON deserialization
+        // Parameterless constructor for JSON 
         public Student() : base("DefaultFirstName", "DefaultLastName", 0) // Provide default values for Person
         {
             StudentID = GenerateStudentID(); // Generate a unique ID

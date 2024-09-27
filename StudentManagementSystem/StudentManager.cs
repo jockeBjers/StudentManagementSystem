@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 
 namespace StudentManagementSystem
 {
-    //Things to add:
+    //Things to add
     // Method for changing a students grade
     // Method to search for grade group
     // Method for removing students
