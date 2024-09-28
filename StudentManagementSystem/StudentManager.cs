@@ -35,12 +35,11 @@ namespace StudentManagementSystem
                     Student.existingIDs.Add(student.StudentID);
                 }
             }
-            else
+            else // else if a student exist, which shouldnt be possible.
             {
                 Console.WriteLine($"A student with the ID {student.StudentID} already exists.");
             }
         }
-
 
         public bool RemoveStudentById(string studentID)
         {
