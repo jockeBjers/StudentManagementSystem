@@ -21,14 +21,24 @@ namespace StudentManagementSystem
 
         public void AddStudent(Student student)
         {
-            if (!GetAllClassrooms().Contains(student.Classroom))
+            // Add the student to the dictionary
+            if (students.TryAdd(student.StudentID, student))
             {
-                Console.WriteLine($"Classroom '{student.Classroom}' does not exist. Adding it to the list.");
-            }
+                Console.WriteLine($"Student {student.FirstName} {student.LastName} added successfully.");
 
-            // Add student to the dictionary
-            students.TryAdd(student.StudentID, student);
-            SaveStudentsToJson("studentlistFile.json"); // Save after adding a student
+                // Save the updated student list to the JSON file
+                SaveStudentsToJson("studentlistFile.json");
+
+                // Add to existing IDs if necessary
+                if (!Student.existingIDs.Contains(student.StudentID))
+                {
+                    Student.existingIDs.Add(student.StudentID);
+                }
+            }
+            else
+            {
+                Console.WriteLine($"A student with the ID {student.StudentID} already exists.");
+            }
         }
 
 
@@ -176,7 +186,7 @@ namespace StudentManagementSystem
                         // Add to existing IDs
                         if (!Student.existingIDs.Contains(student.StudentID))
                         {
-                            Student.existingIDs.Add(student.StudentID); 
+                            Student.existingIDs.Add(student.StudentID);
                         }
                     }
 

@@ -80,12 +80,65 @@ namespace StudentManagementSystem
 
             string classroom = InputHelper.GetUserInput<string>("Enter class name:");
 
+            // Call the new ConfirmClassroom method
+            classroom = ConfirmClassroom(classroom, studentManager);
+
             var newStudent = new Student(firstName, lastName, age, grade, classroom);
-
-
             studentManager.AddStudent(newStudent);
             Console.WriteLine("Student added successfully.");
         }
+
+        private static string ConfirmClassroom(string classroom, StudentManager studentManager)
+        {
+            // First, check if the classroom exists
+            while (true) // Loop until a valid classroom is confirmed
+            {
+                if (studentManager.GetAllClassrooms().Contains(classroom))
+                {
+                    // If classroom exists, break out of the loop
+                    return classroom;
+                }
+                else
+                {
+                    Console.WriteLine($"Classroom '{classroom}' does not exist!");
+                    bool confirm = false;
+
+                    // Confirmation loop for adding a new classroom
+                    while (!confirm)
+                    {
+                        Console.Write("Are you sure you want to add a new classroom? (y/n): ");
+                        var input = Console.ReadLine()?.ToLower();
+
+                        if (input == "y")
+                        {
+                            confirm = true; // Break out of this confirmation loop
+                                            // The classroom will be added later (you can call the AddClassroom method here if needed)
+                            return classroom; // Return the classroom since the user wants to add it
+                        }
+                        else if (input == "n")
+                        {
+                            // Prompt the user for a valid classroom
+                            var classrooms = studentManager.GetAllClassrooms();
+                            Console.WriteLine("Available Classrooms:");
+                            foreach (var room in classrooms)
+                            {
+                                Console.WriteLine($"- {room}");
+                            }
+                            Console.Write("Please enter a valid classroom: ");
+                            classroom = Console.ReadLine();
+                            break; // Exit the confirmation loop and check the new classroom again
+                        }
+                        else
+                        {
+                            // Invalid input, prompt again
+                            Console.WriteLine("Invalid input. Please enter 'y' for yes or 'n' for no.");
+                        }
+                    }
+                }
+            }
+        }
+
+
 
         private void SearchStudent()
         {
