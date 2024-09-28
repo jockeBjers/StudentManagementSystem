@@ -52,6 +52,7 @@ namespace StudentManagementSystem
 
         private void PrintStudents()
         {
+            //Grades are made into grade groups for sorting and printing out students.
             var gradeGroups = new[]
             {
             (LowerBound: 91, UpperBound: 100, GroupName: "Group 5: Excellent"),
@@ -59,7 +60,7 @@ namespace StudentManagementSystem
             (LowerBound: 51, UpperBound: 70, GroupName: "Group 3: Average"),
             (LowerBound: 21, UpperBound: 50, GroupName: "Group 2: Poor"),
             (LowerBound: 0, UpperBound: 20, GroupName: "Group 1: Low")
-        };
+            };
 
             studentManager.PrintAllStudents(gradeGroups);
         }
@@ -80,22 +81,22 @@ namespace StudentManagementSystem
 
             string classroom = InputHelper.GetUserInput<string>("Enter class name:");
 
-            // Call the new ConfirmClassroom method
-            classroom = ConfirmClassroom(classroom, studentManager);
+            // Call to confirm classroom
+            ConfirmClassroom(classroom);
 
             var newStudent = new Student(firstName, lastName, age, grade, classroom);
             studentManager.AddStudent(newStudent);
             Console.WriteLine("Student added successfully.");
         }
 
-        private static string ConfirmClassroom(string classroom, StudentManager studentManager)
+        private string ConfirmClassroom(string classroom)
         {
-            // First, check if the classroom exists
+            // Check for classrooms
             while (true) // Loop until a valid classroom is confirmed
             {
                 if (studentManager.GetAllClassrooms().Contains(classroom))
                 {
-                    // If classroom exists, break out of the loop
+                    // If classroom exists, break
                     return classroom;
                 }
                 else
@@ -103,17 +104,15 @@ namespace StudentManagementSystem
                     Console.WriteLine($"Classroom '{classroom}' does not exist!");
                     bool confirm = false;
 
-                    // Confirmation loop for adding a new classroom
+                    // if class doesnt exist, ask if it should be added or not.
                     while (!confirm)
-                    {
-                        Console.Write("Are you sure you want to add a new classroom? (y/n): ");
-                        var input = Console.ReadLine()?.ToLower();
-
+                    {  
+                        string input = InputHelper.GetUserInput<string>("Are you sure you want to add a new classroom? (y/n): ");
                         if (input == "y")
                         {
-                            confirm = true; // Break out of this confirmation loop
-                                            // The classroom will be added later (you can call the AddClassroom method here if needed)
-                            return classroom; // Return the classroom since the user wants to add it
+                            confirm = true; // confirm the new classroom
+                                            
+                            return classroom; // Return new added classroom
                         }
                         else if (input == "n")
                         {
@@ -126,7 +125,7 @@ namespace StudentManagementSystem
                             }
                             Console.Write("Please enter a valid classroom: ");
                             classroom = Console.ReadLine();
-                            break; // Exit the confirmation loop and check the new classroom again
+                            break; // breaks loop and go back to previous step
                         }
                         else
                         {
@@ -137,8 +136,6 @@ namespace StudentManagementSystem
                 }
             }
         }
-
-
 
         private void SearchStudent()
         {
@@ -203,5 +200,4 @@ namespace StudentManagementSystem
             Console.WriteLine("Class updated successfully.");
         }
     }
-
 }

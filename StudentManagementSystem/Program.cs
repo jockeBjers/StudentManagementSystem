@@ -17,6 +17,4 @@ namespace StudentManagementSystem
             ui.Menu();
         }
     }
-
-
 }

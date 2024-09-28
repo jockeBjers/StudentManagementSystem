@@ -19,6 +19,4 @@ namespace StudentManagementSystem
             Age = age;
         }
     }
-
-
 }
