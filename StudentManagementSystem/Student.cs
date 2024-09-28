@@ -35,6 +35,7 @@ namespace StudentManagementSystem
         public Student() : base("DefaultFirstName", "DefaultLastName", 0) // Provide default values for Person
         {
             StudentID = GenerateStudentID(); // Generate a unique ID
+            existingIDs.Add(StudentID);
         }
 
         // Constructor with parameters

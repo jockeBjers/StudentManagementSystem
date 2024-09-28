@@ -53,11 +53,10 @@ namespace StudentManagementSystem
 
 
         // Method to print all students, grouped by classroom
-        public void PrintAllStudents((int LowerBound, int UpperBound, string GroupName)[] gradeGroups)
+        public void PrintAllStudents()
         {
             // Group students by their classroom
             var studentsByClass = students.Values.GroupBy(s => s.Classroom);
-
             // Iterate over each class group
             foreach (var classGroup in studentsByClass)
             {
@@ -71,18 +70,31 @@ namespace StudentManagementSystem
                 Console.WriteLine($"\nClass: {classGroup.Key} Total students: {studentCount}, Average Grade: {averageGrade:F2}");
 
                 // Print the students in this classroom along with their grade groups
-                PrintStudentsGroupedByGrade(classGroup, gradeGroups);
+                PrintStudentsGroupedByGrade(classGroup);
             }
-
             // Print the average grade of all students
-
             var overallAverageGrade = students.Values.Average(s => s.Grade);
             Console.WriteLine($"\nAverage Grade of All Students: {overallAverageGrade:F2}");
         }
 
-        // Helper method to print students grouped by grade ranges
-        private static void PrintStudentsGroupedByGrade(IEnumerable<Student> students, (int LowerBound, int UpperBound, string GroupName)[] gradeGroups)
+        private static (int LowerBound, int UpperBound, string GroupName)[] GradeGroups()
         {
+            return // returning an array using value tuples
+            [   //Each grade group has a lower- and an upper Bound for the grades, and a name.
+                (LowerBound: 91, UpperBound: 100, GroupName: "Group 5: Excellent"),
+                (LowerBound: 71, UpperBound: 90, GroupName: "Group 4: Great"),
+                (LowerBound: 51, UpperBound: 70, GroupName: "Group 3: Average"),
+                (LowerBound: 21, UpperBound: 50, GroupName: "Group 2: Poor"),
+                (LowerBound: 0, UpperBound: 20, GroupName: "Group 1: Low")
+            ];
+        }
+
+        // Helper method to print students grouped by grade ranges
+        private static void PrintStudentsGroupedByGrade(IEnumerable<Student> students)
+        {
+            // Get the grade groups
+            var gradeGroups = GradeGroups();
+
             foreach (var gradeGroup in gradeGroups)
             {
                 // Get students in the current grade group
@@ -125,7 +137,6 @@ namespace StudentManagementSystem
             }
         }
 
-
         public Student? GetStudentById(string studentID)
         {
             if (students.TryGetValue(studentID, out var student))
@@ -163,7 +174,6 @@ namespace StudentManagementSystem
                 Console.WriteLine($"An error occurred while saving to the file: {ex.Message}");
             }
         }
-
 
         // Method to load students from JSON
         public void LoadStudentsFromJson(string filePath)
@@ -205,9 +215,5 @@ namespace StudentManagementSystem
                 Console.WriteLine($"An error occurred while loading students: {ex.Message}");
             }
         }
-
-
     }
 }
-
-

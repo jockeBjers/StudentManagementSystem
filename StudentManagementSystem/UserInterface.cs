@@ -52,17 +52,7 @@ namespace StudentManagementSystem
 
         private void PrintStudents()
         {
-            //Grades are made into grade groups for sorting and printing out students.
-            var gradeGroups = new[]
-            {
-            (LowerBound: 91, UpperBound: 100, GroupName: "Group 5: Excellent"),
-            (LowerBound: 71, UpperBound: 90, GroupName: "Group 4: Great"),
-            (LowerBound: 51, UpperBound: 70, GroupName: "Group 3: Average"),
-            (LowerBound: 21, UpperBound: 50, GroupName: "Group 2: Poor"),
-            (LowerBound: 0, UpperBound: 20, GroupName: "Group 1: Low")
-            };
-
-            studentManager.PrintAllStudents(gradeGroups);
+            studentManager.PrintAllStudents();
         }
 
         private void AddStudent()
@@ -106,12 +96,11 @@ namespace StudentManagementSystem
 
                     // if class doesnt exist, ask if it should be added or not.
                     while (!confirm)
-                    {  
+                    {
                         string input = InputHelper.GetUserInput<string>("Are you sure you want to add a new classroom? (y/n): ");
                         if (input == "y")
                         {
-                            confirm = true; // confirm the new classroom
-                                            
+                            confirm = true; // confirm the new classroom                 
                             return classroom; // Return new added classroom
                         }
                         else if (input == "n")
@@ -175,15 +164,8 @@ namespace StudentManagementSystem
         private static void ChangeGrade(Student student)
         {
             int newGrade = InputHelper.GetUserInput<int>("Enter new grade between 1 - 100:");
-            if (newGrade >= 1 && newGrade <= 100)
-            {
-                student.Grade = newGrade;
-                Console.WriteLine("Grade updated successfully.");
-            }
-            else
-            {
-                return;
-            }
+            student.Grade = newGrade;
+            Console.WriteLine("Grade updated successfully.");
         }
 
         private void ChangeClassroom(Student student)
