@@ -21,7 +21,7 @@ namespace StudentManagementSystem
 
         public void AddStudent(Student student)
         {
-            // Add the student to the dictionary
+            // Add the student to the dictionary  
             if (students.TryAdd(student.StudentID, student))
             {
                 Console.WriteLine($"Student {student.FirstName} {student.LastName} added successfully.");
