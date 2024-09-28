@@ -39,7 +39,7 @@ namespace StudentManagementSystem
                         SearchStudent();
                         break;
                     case "4":
-                        studentManager.SaveStudentsToJson("studentsFile.txt");
+                        studentManager.SaveStudentsToJson();
                         Console.WriteLine("Goodbye!");
                         exit = true;
                         break;

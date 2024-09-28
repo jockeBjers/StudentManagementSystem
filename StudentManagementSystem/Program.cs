@@ -8,11 +8,9 @@ namespace StudentManagementSystem
     {
         private static StudentManager studentManager = new(); // Instance for managing students
 
-        private static string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "studentlistFile.json"); // File path for saving/loading students
-
         static void Main(string[] args)
         {
-            studentManager.LoadStudentsFromJson(filePath); // Load existing students at startup
+            studentManager.LoadStudentsFromJson(); // Load existing students at startup
             UserInterface ui = new(studentManager);
             ui.Menu();
         }

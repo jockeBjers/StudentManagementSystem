@@ -11,7 +11,7 @@ namespace StudentManagementSystem
     public class Student : Person
     {
         public static List<string> existingIDs = new(); // To track existing IDs
-        public string StudentID { get; private set; }
+        public string StudentID { get; set; } 
         public string Classroom { get; set; }
         private int grade;
 
@@ -31,20 +31,19 @@ namespace StudentManagementSystem
             }
         }
 
-        // Parameterless constructor for JSON 
-        public Student() : base("DefaultFirstName", "DefaultLastName", 0) // Provide default values for Person
+
+        public Student() : base("DefaultFirstName", "DefaultLastName", 0)
         {
-            StudentID = GenerateStudentID(); // Generate a unique ID
-            existingIDs.Add(StudentID);
+            
         }
 
-        // Constructor with parameters
+        
         public Student(string firstName, string lastName, int age, int grade, string classroom)
             : base(firstName, lastName, age)
         {
             Grade = grade;
             Classroom = classroom;
-            StudentID = GenerateStudentID(); // Automatically generate StudentID
+            StudentID = GenerateStudentID(); // Automatically generate StudentID 
             existingIDs.Add(StudentID); // Add the generated ID to the list of existing IDs
         }
 
@@ -60,6 +59,11 @@ namespace StudentManagementSystem
 
             return id;
         }
-    }
 
+        // Method to remove an ID when a student is deleted
+        public static void RemoveStudentID(string id)
+        {
+            existingIDs.Remove(id);
+        }
+    }
 }

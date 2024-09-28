@@ -8,6 +8,7 @@ using System.Text.Json.Serialization;
 using System.Net.Http.Json;
 using Newtonsoft.Json;
 
+
 namespace StudentManagementSystem
 {
     //Things to add
@@ -19,38 +20,39 @@ namespace StudentManagementSystem
     {
         private Dictionary<string, Student> students = new Dictionary<string, Student>();
 
+        // Saving the data in the Data folder, the .. .. takes it up from the debug folder, to ensure it is both loaded and saved in the data folder.
+        private static string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "Data", "studentlistFile.json");
+
         public void AddStudent(Student student)
         {
-            // Add the student to the dictionary  
+            // try to add, else a message that id already exists.
             if (students.TryAdd(student.StudentID, student))
             {
-                Console.WriteLine($"Student {student.FirstName} {student.LastName} added successfully.");
-
-                // Save the updated student list to the JSON file
-                SaveStudentsToJson("studentlistFile.json");
-
-                // Add to existing IDs if necessary
-                if (!Student.existingIDs.Contains(student.StudentID))
-                {
-                    Student.existingIDs.Add(student.StudentID);
-                }
+                Student.existingIDs.Add(student.StudentID);
+                SaveStudentsToJson();
             }
-            else // else if a student exist, which shouldnt be possible.
+            else
             {
-                Console.WriteLine($"A student with the ID {student.StudentID} already exists.");
+                Console.WriteLine("A student with this ID already exists.");
             }
         }
 
-        public bool RemoveStudentById(string studentID)
+        public void RemoveStudentById(string studentId)
         {
-            bool removed = students.Remove(studentID);
-            if (removed)
+            if (students.ContainsKey(studentId))
             {
-                SaveStudentsToJson("studentlistFile.json"); // Save after removing a student
+                // Remove the student from the dictionary
+                students.Remove(studentId);
+                SaveStudentsToJson(); // Saving the file for safety.
+                // Also remove the student's ID from the existing IDs list
+                Student.RemoveStudentID(studentId);
+                Console.WriteLine($"Student with ID {studentId} has been removed.");
             }
-            return removed;
+            else
+            {
+                Console.WriteLine($"No student found with ID {studentId}.");
+            }
         }
-
 
         // Method to print all students, grouped by classroom
         public void PrintAllStudents()
@@ -60,17 +62,18 @@ namespace StudentManagementSystem
             // Iterate over each class group
             foreach (var classGroup in studentsByClass)
             {
-                // Count the number of students in this classroom
+                // Count the number of students in the class
                 int studentCount = classGroup.Count();
 
                 // Calculate the average grade for students in this classroom
                 var averageGrade = classGroup.Average(s => s.Grade);
 
-                // Print the classroom name along with the number of students and the average grade
+                // Print out the various classes
                 Console.WriteLine($"\nClass: {classGroup.Key} Total students: {studentCount}, Average Grade: {averageGrade:F2}");
 
-                // Print the students in this classroom along with their grade groups
-                PrintStudentsGroupedByGrade(classGroup);
+                // next loop to sort by grade
+                var classGroupDict = classGroup.ToDictionary(s => s.StudentID);
+                PrintStudentsGroupedByGrade(classGroupDict);
             }
             // Print the average grade of all students
             var overallAverageGrade = students.Values.Average(s => s.Grade);
@@ -89,8 +92,8 @@ namespace StudentManagementSystem
             ];
         }
 
-        // Helper method to print students grouped by grade ranges
-        private static void PrintStudentsGroupedByGrade(IEnumerable<Student> students)
+
+        private static void PrintStudentsGroupedByGrade(Dictionary<string, Student> students)
         {
             // Get the grade groups
             var gradeGroups = GradeGroups();
@@ -99,11 +102,11 @@ namespace StudentManagementSystem
             {
                 // Get students in the current grade group
                 var studentsInGroup = students
-                    .Where(s => s.Grade >= gradeGroup.LowerBound && s.Grade <= gradeGroup.UpperBound)
-                    .OrderByDescending(s => s.Grade)
+                    .Where(s => s.Value.Grade >= gradeGroup.LowerBound && s.Value.Grade <= gradeGroup.UpperBound)
+                    .OrderByDescending(s => s.Value.Grade)
                     .ToList();
 
-                if (studentsInGroup.Any())
+                if (studentsInGroup.Any()) // if no student is inside a grade group, that group wont be visible.
                 {
                     // Set text color based on grade group performance
                     switch (gradeGroup.GroupName)
@@ -122,13 +125,13 @@ namespace StudentManagementSystem
                             break;
                     }
 
-                    // Print group header
+                    // Print the grade group
                     Console.WriteLine($"{gradeGroup.GroupName} ({gradeGroup.LowerBound}-{gradeGroup.UpperBound})");
 
-                    // Print students in this grade group
+                    // Print students in each group grade group
                     foreach (var student in studentsInGroup)
                     {
-                        Console.WriteLine($"  Student ID: {student.StudentID}  Name: {student.FirstName} {student.LastName}, Age: {student.Age}, Grade: {student.Grade}, Class: {student.Classroom}");
+                        Console.WriteLine($"  Student ID: {student.Value.StudentID}  Name: {student.Value.FirstName} {student.Value.LastName}, Age: {student.Value.Age}, Grade: {student.Value.Grade}, Class: {student.Value.Classroom}");
                     }
 
                     // Reset console color after printing each group
@@ -160,14 +163,13 @@ namespace StudentManagementSystem
                   .ToList();
         }
 
-        public void SaveStudentsToJson(string filePath)
+        public void SaveStudentsToJson()
         {
             try
             {
-                // Serialize the student dictionary to JSON
                 string json = System.Text.Json.JsonSerializer.Serialize(students, new JsonSerializerOptions { WriteIndented = true });
-                File.WriteAllText(filePath, json); // Write JSON to file
-                Console.WriteLine("Students saved to JSON file successfully.");
+                File.WriteAllText(filePath, json); // Write JSON to file in the project Data folder
+                Console.WriteLine($"Students saved to: {filePath}");
             }
             catch (IOException ex)
             {
@@ -175,45 +177,18 @@ namespace StudentManagementSystem
             }
         }
 
-        // Method to load students from JSON
-        public void LoadStudentsFromJson(string filePath)
+        public void LoadStudentsFromJson()
         {
-            try
+
+            string json = File.ReadAllText(filePath);
+            var loadedStudents = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, Student>>(json);
+
+            if (loadedStudents != null)
             {
-                if (File.Exists(filePath)) // Check if the file exists before trying to read it
-                {
-                    var json = File.ReadAllText(filePath);
-                    var loadedStudents = JsonConvert.DeserializeObject<Dictionary<string, Student>>(json);
-
-                    foreach (var person in loadedStudents)
-                    {
-                        var student = person.Value; // Access the Student object
-
-                        // Add the student to your dictionary
-                        students[student.StudentID] = student;
-
-                        // Add to existing IDs
-                        if (!Student.existingIDs.Contains(student.StudentID))
-                        {
-                            Student.existingIDs.Add(student.StudentID);
-                        }
-                    }
-
-                    Console.WriteLine("Students loaded successfully.");
-                }
-                else
-                {
-                    Console.WriteLine("No existing student file found. Starting with an empty list.");
-                }
-            }
-            catch (System.Text.Json.JsonException jsonEx)
-            {
-                Console.WriteLine($"JSON error while loading students: {jsonEx.Message}");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"An error occurred while loading students: {ex.Message}");
+                students = loadedStudents;
+                Console.WriteLine("Students loaded successfully.");
             }
         }
     }
 }
+
