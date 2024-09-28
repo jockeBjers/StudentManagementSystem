@@ -13,7 +13,7 @@ namespace StudentManagementSystem
     //Things to add
     // Method for changing a students grade
     // Method to search for grade group
-    // Method for removing students
+    // Method for removing students 
     // separate input from logic
     public class StudentManager
     {
