@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace StudentManagementSystem
 {
@@ -52,7 +53,28 @@ namespace StudentManagementSystem
 
         private void PrintStudents()
         {
-            studentManager.PrintAllStudents();
+            Console.Clear();
+
+            int choice = InputHelper.GetUserInput<int>("Press\n1. To print out all students in alphabetic order\n2. To print out all classes and grades\n3. To print out one class.");
+            switch (choice)
+            {
+                case 1:
+                    studentManager.PrintStudentsAlphabeticOrder();
+                    break;
+                case 2:
+                    studentManager.PrintStudentsByClass();
+                    break;
+                case 3:
+                    Console.WriteLine("\nClasses:");
+                    var classrooms = studentManager.GetAllClassrooms();
+                    foreach (var room in classrooms)
+                    {
+                        Console.WriteLine($"- {room}");
+                    }
+                    string classroom = InputHelper.GetUserInput<string>("Enter which class you want to see: ");
+                    studentManager.PrintSingleClass(classroom);
+                    break;
+            }
         }
 
         private void AddStudent()

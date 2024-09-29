@@ -11,11 +11,6 @@ using Newtonsoft.Json;
 
 namespace StudentManagementSystem
 {
-    //Things to add
-    // Method for changing a students grade
-    // Method to search for grade group
-    // Method for removing students 
-    // separate input from logic
     public class StudentManager
     {
         private Dictionary<string, Student> students = new Dictionary<string, Student>();
@@ -39,10 +34,8 @@ namespace StudentManagementSystem
 
         public void RemoveStudentById(string studentId)
         {
-            if (students.ContainsKey(studentId))
+            if (students.Remove(studentId))
             {
-                // Remove the student from the dictionary
-                students.Remove(studentId);
                 SaveStudentsToJson(); // Saving the file for safety.
                 // Also remove the student's ID from the existing IDs list
                 Student.RemoveStudentID(studentId);
@@ -54,19 +47,45 @@ namespace StudentManagementSystem
             }
         }
 
-        // Method to print all students, grouped by classroom
-        public void PrintAllStudents()
+        public void PrintStudentsAlphabeticOrder()
+        {
+            var sortedAlphabetically = students
+                .OrderBy(s => s.Value.LastName) // Order all students by their lastname and print out
+                .ToList();
+            Console.WriteLine("Sorted by lastnames");
+            foreach (var student in sortedAlphabetically)
+            {
+                Console.WriteLine($"  Student ID: {student.Value.StudentID}  Name: {student.Value.FirstName} {student.Value.LastName}, Age: {student.Value.Age}, Grade: {student.Value.Grade}, Class: {student.Value.Classroom}");
+            }
+        }
+
+        public void PrintSingleClass(string classroom)
+        {
+            var studentsInClass = students.Where(s => s.Value.Classroom == classroom).ToList();
+            if (studentsInClass.Count > 0)
+            {
+                int studentCount = studentsInClass.Count();
+                Console.WriteLine($"Class: {classroom}, students: {studentCount}");
+                foreach (var student in studentsInClass)
+                {
+                    Console.WriteLine($"  Student ID: {student.Value.StudentID}  Name: {student.Value.FirstName} {student.Value.LastName}, Age: {student.Value.Age}, Grade: {student.Value.Grade}");
+                }
+            }
+            else
+            {
+                Console.WriteLine($"No students found in class {classroom}");
+            }
+        }
+
+        public void PrintStudentsByClass()
         {
             // Group students by their classroom
             var studentsByClass = students.Values.GroupBy(s => s.Classroom);
-            // Iterate over each class group
+
             foreach (var classGroup in studentsByClass)
             {
-                // Count the number of students in the class
                 int studentCount = classGroup.Count();
-
-                // Calculate the average grade for students in this classroom
-                var averageGrade = classGroup.Average(s => s.Grade);
+                var averageGrade = classGroup.Average(s => s.Grade); // count the students in each group and their average
 
                 // Print out the various classes
                 Console.WriteLine($"\nClass: {classGroup.Key} Total students: {studentCount}, Average Grade: {averageGrade:F2}");
@@ -91,7 +110,6 @@ namespace StudentManagementSystem
                 (LowerBound: 0, UpperBound: 20, GroupName: "Group 1: Low")
             ];
         }
-
 
         private static void PrintStudentsGroupedByGrade(Dictionary<string, Student> students)
         {
@@ -179,7 +197,6 @@ namespace StudentManagementSystem
 
         public void LoadStudentsFromJson()
         {
-
             string json = File.ReadAllText(filePath);
             var loadedStudents = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, Student>>(json);
 

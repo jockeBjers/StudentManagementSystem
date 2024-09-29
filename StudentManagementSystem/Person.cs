@@ -8,8 +8,6 @@ namespace StudentManagementSystem
 {
     public class Person
     {
-
-        //add person class for future use, to add teachers
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int Age { get; set; }
