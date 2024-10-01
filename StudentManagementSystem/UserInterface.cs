@@ -40,8 +40,8 @@ namespace StudentManagementSystem
                         SearchStudent();
                         break;
                     case "4":
-                        studentManager.SaveStudentsToJson();
                         Console.WriteLine("Goodbye!");
+                        studentManager.SaveStudentsToJson();
                         exit = true;
                         break;
                     default:
@@ -71,7 +71,7 @@ namespace StudentManagementSystem
                     {
                         Console.WriteLine($"- {room}");
                     }
-                    string classroom = InputHelper.GetUserInput<string>("Enter which class you want to see: ");
+                    string classroom = InputHelper.GetUserInput<string>("Enter which class you want to see: ").ToLower();
                     studentManager.PrintSingleClass(classroom);
                     break;
             }

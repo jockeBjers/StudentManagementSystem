@@ -61,7 +61,9 @@ namespace StudentManagementSystem
 
         public void PrintSingleClass(string classroom)
         {
-            var studentsInClass = students.Where(s => s.Value.Classroom == classroom).ToList();
+            var studentsInClass = students.Where(s => s.Value.Classroom == classroom)
+                .OrderBy(s => s.Value.LastName)
+                .ToList();
             if (studentsInClass.Count > 0)
             {
                 int studentCount = studentsInClass.Count();

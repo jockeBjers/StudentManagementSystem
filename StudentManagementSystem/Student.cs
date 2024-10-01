@@ -31,12 +31,10 @@ namespace StudentManagementSystem
             }
         }
 
-
-        public Student() : base("DefaultFirstName", "DefaultLastName", 0)
+        public Student() : base("DefaultFirstName", "DefaultLastName", 0)  // Calling the base class constructor with default values
         {
             
         }
-
         
         public Student(string firstName, string lastName, int age, int grade, string classroom)
             : base(firstName, lastName, age)
