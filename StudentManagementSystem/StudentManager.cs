@@ -51,6 +51,7 @@ namespace StudentManagementSystem
         {
             var sortedAlphabetically = students
                 .OrderBy(s => s.Value.LastName) // Order all students by their lastname and print out
+                .ThenBy(s => s.Value.FirstName)
                 .ToList();
             Console.WriteLine("Sorted by lastnames");
             foreach (var student in sortedAlphabetically)
@@ -126,7 +127,7 @@ namespace StudentManagementSystem
                     .OrderByDescending(s => s.Value.Grade)
                     .ToList();
 
-                if (studentsInGroup.Any()) // if no student is inside a grade group, that group wont be visible.
+                if (studentsInGroup.Count != 0) // if no student is inside a grade group, that group wont be visible.
                 {
                     // Set text color based on grade group performance
                     switch (gradeGroup.GroupName)
@@ -199,13 +200,28 @@ namespace StudentManagementSystem
 
         public void LoadStudentsFromJson()
         {
-            string json = File.ReadAllText(filePath);
-            var loadedStudents = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, Student>>(json);
-
-            if (loadedStudents != null)
+            try
             {
-                students = loadedStudents;
-                Console.WriteLine("Students loaded successfully.");
+                string json = File.ReadAllText(filePath);
+                var loadedStudents = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, Student>>(json);
+
+                if (loadedStudents != null)
+                {
+                    students = loadedStudents;
+                    Console.WriteLine("Students loaded successfully.");
+                }
+            }
+            catch (FileNotFoundException)
+            {
+                Console.WriteLine("File not found.");
+            }
+            catch (System.Text.Json.JsonException)
+            {
+                Console.WriteLine("Error deserializing the JSON file.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An unexpected error occurred: {ex.Message}");
             }
         }
     }
