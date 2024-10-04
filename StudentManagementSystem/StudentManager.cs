@@ -60,7 +60,7 @@ namespace StudentManagementSystem
             }
         }
 
-        public void PrintSingleClass(string classroom)
+        public void PrintSingleClassroom(string classroom)
         {
             var studentsInClass = students.Where(s => s.Value.Classroom == classroom)
                 .OrderBy(s => s.Value.LastName)
@@ -80,7 +80,7 @@ namespace StudentManagementSystem
             }
         }
 
-        public void PrintStudentsByClass()
+        public void PrintAllClassrooms()
         {
             // Group students by their classroom
             var studentsByClass = students.Values.GroupBy(s => s.Classroom);
@@ -94,76 +94,21 @@ namespace StudentManagementSystem
                 Console.WriteLine($"\nClass: {classGroup.Key} Total students: {studentCount}, Average Grade: {averageGrade:F2}");
 
                 // next loop to sort by grade
-                var classGroupDict = classGroup.ToDictionary(s => s.StudentID);
-                PrintStudentsGroupedByGrade(classGroupDict);
+                var eachClass = classGroup.ToDictionary(s => s.StudentID)
+                    .OrderByDescending(s => s.Value.Grade);
+                foreach (var student in eachClass)
+                {
+                    Console.WriteLine($"    Student ID: {student.Value.StudentID}  Name: {student.Value.FirstName} {student.Value.LastName}, Age: {student.Value.Age}, Grade: {student.Value.Grade}");
+                }
             }
             // Print the average grade of all students
             var overallAverageGrade = students.Values.Average(s => s.Grade);
             Console.WriteLine($"\nAverage Grade of All Students: {overallAverageGrade:F2}");
         }
 
-        private static (int LowerBound, int UpperBound, string GroupName)[] GradeGroups()
-        {
-            return // returning an array using value tuples
-            [   //Each grade group has a lower- and an upper Bound for the grades, and a name.
-                (LowerBound: 91, UpperBound: 100, GroupName: "Group 5: Excellent"),
-                (LowerBound: 71, UpperBound: 90, GroupName: "Group 4: Great"),
-                (LowerBound: 51, UpperBound: 70, GroupName: "Group 3: Average"),
-                (LowerBound: 21, UpperBound: 50, GroupName: "Group 2: Poor"),
-                (LowerBound: 0, UpperBound: 20, GroupName: "Group 1: Low")
-            ];
-        }
-
-        private static void PrintStudentsGroupedByGrade(Dictionary<string, Student> students)
-        {
-            // Get the grade groups
-            var gradeGroups = GradeGroups();
-
-            foreach (var gradeGroup in gradeGroups)
-            {
-                // Get students in the current grade group
-                var studentsInGroup = students
-                    .Where(s => s.Value.Grade >= gradeGroup.LowerBound && s.Value.Grade <= gradeGroup.UpperBound)
-                    .OrderByDescending(s => s.Value.Grade)
-                    .ToList();
-
-                if (studentsInGroup.Count != 0) // if no student is inside a grade group, that group wont be visible.
-                {
-                    // Set text color based on grade group performance
-                    switch (gradeGroup.GroupName)
-                    {
-                        case "Group 1: Low": // Failing group
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            break;
-                        case "Group 5: Excellent": // Top-performing group
-                            Console.ForegroundColor = ConsoleColor.DarkGreen;
-                            break;
-                        case "Group 4: Great":
-                            Console.ForegroundColor = ConsoleColor.Green;
-                            break;
-                        default:
-                            Console.ForegroundColor = ConsoleColor.Yellow; // Other groups
-                            break;
-                    }
-
-                    // Print the grade group
-                    Console.WriteLine($"{gradeGroup.GroupName} ({gradeGroup.LowerBound}-{gradeGroup.UpperBound})");
-
-                    // Print students in each group grade group
-                    foreach (var student in studentsInGroup)
-                    {
-                        Console.WriteLine($"  Student ID: {student.Value.StudentID}  Name: {student.Value.FirstName} {student.Value.LastName}, Age: {student.Value.Age}, Grade: {student.Value.Grade}, Class: {student.Value.Classroom}");
-                    }
-
-                    // Reset console color after printing each group
-                    Console.ResetColor();
-                }
-            }
-        }
-
         public Student? GetStudentById(string studentID)
         {
-            if (students.TryGetValue(studentID, out var student))
+            if (students.TryGetValue(studentID, out var student))  // for searching for student to update
             {
                 return student;
             }
@@ -180,7 +125,7 @@ namespace StudentManagementSystem
             return students.Values
                   .Where(s => !string.IsNullOrEmpty(s.Classroom)) // Ensure the classroom is not null or empty
                   .Select(s => s.Classroom)
-                  .Distinct()
+                  .Distinct() // Makes sure each class room is only printed once
                   .ToList();
         }
 

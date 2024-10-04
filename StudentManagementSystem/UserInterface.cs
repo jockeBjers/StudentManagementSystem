@@ -62,7 +62,7 @@ namespace StudentManagementSystem
                     studentManager.PrintStudentsAlphabeticOrder();
                     break;
                 case 2:
-                    studentManager.PrintStudentsByClass();
+                    studentManager.PrintAllClassrooms();
                     break;
                 case 3:
                     Console.WriteLine("\nClasses:");
@@ -72,7 +72,7 @@ namespace StudentManagementSystem
                         Console.WriteLine($"- {room}");
                     }
                     string classroom = InputHelper.GetUserInput<string>("Enter which class you want to see: ").ToLower();
-                    studentManager.PrintSingleClass(classroom);
+                    studentManager.PrintSingleClassroom(classroom);
                     break;
             }
         }
