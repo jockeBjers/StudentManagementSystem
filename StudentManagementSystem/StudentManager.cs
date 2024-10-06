@@ -24,7 +24,6 @@ namespace StudentManagementSystem
             if (students.TryAdd(student.StudentID, student))
             {
                 Student.existingIDs.Add(student.StudentID);
-                SaveStudentsToJson();
             }
             else
             {
@@ -36,7 +35,6 @@ namespace StudentManagementSystem
         {
             if (students.Remove(studentId))
             {
-                SaveStudentsToJson(); // Saving the file for safety.
                 // Also remove the student's ID from the existing IDs list
                 Student.RemoveStudentID(studentId);
                 Console.WriteLine($"Student with ID {studentId} has been removed.");

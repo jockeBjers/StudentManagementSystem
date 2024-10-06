@@ -31,7 +31,7 @@ namespace StudentManagementSystem
             }
         }
 
-        public Student() : base("DefaultFirstName", "DefaultLastName", 0)  // Calling the base class constructor with default values
+        public Student() : base()  // Calling the base class constructor with default values
         {
             
         }

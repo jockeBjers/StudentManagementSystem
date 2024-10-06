@@ -15,10 +15,7 @@ namespace StudentManagementSystem
             ui.Menu();
         }
         //Things to add
-        // Method for changing a students grade **
-        // Method to search for grade group ** 
-        // Method for removing students  **
-        // separate input from logic   **
         // add person class for future use, to add teachers
+        // subjects for both teachers and students. 
     }
 }
