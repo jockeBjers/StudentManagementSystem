@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace StudentManagementSystem
+namespace StudentManagementSystem.Models
 {
     public class Student : Person
     {

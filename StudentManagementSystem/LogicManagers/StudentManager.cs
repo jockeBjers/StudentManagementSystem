@@ -7,9 +7,9 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Net.Http.Json;
 using Newtonsoft.Json;
+using StudentManagementSystem.Models;
 
-
-namespace StudentManagementSystem
+namespace StudentManagementSystem.LogicManagers
 {
     public class StudentManager
     {
