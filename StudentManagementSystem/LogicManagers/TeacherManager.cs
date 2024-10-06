@@ -7,7 +7,7 @@ using StudentManagementSystem.Models;
 
 namespace StudentManagementSystem.LogicManagers
 {
-    internal class TeacherManager
+    public class TeacherManager
     {
     }
 }

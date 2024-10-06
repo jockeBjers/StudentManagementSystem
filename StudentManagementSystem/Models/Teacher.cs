@@ -35,11 +35,18 @@ namespace StudentManagementSystem.Models
             TeacherID = ++lastTeacherID;
             this.subjects = new List<EnumSubjects>();
         }
+        public void PrintSubjects()
+        {
+            Console.WriteLine("Subjects taught:");
+            foreach (var subject in Subjects)
+            {
+                Console.WriteLine($"   {subject}");
+            }
+        }
 
         public override string ToString()
         {
-            string subjectList = string.Join(", ", Subjects);
-            return $"Teacher: {FirstName} {LastName}, Age: {Age}, ID: {TeacherID}, Subjects: {subjectList}";
+            return $"Teacher: {FirstName} {LastName}, Age: {Age}, ID: {TeacherID}";
         }
     }
 

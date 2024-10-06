@@ -12,6 +12,10 @@ namespace StudentManagementSystem.Models
         English,
         Science,
         History,
-        Art
+        Art,
+        Physics,
+        Biology,
+        Spanish,
+        Music
     }
 }
