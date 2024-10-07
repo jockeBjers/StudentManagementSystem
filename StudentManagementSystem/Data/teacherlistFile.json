@@ -1,0 +1,47 @@
+{
+  "1": {
+    "TeacherID": "1",
+    "Salary": 50000,
+    "Subjects": [
+      "Math",
+      "English"
+    ],
+    "FirstName": "Karl",
+    "LastName": "Gustavsson",
+    "Age": 44
+  },
+  "2": {
+    "TeacherID": "2",
+    "Salary": 45000,
+    "Subjects": [
+      ".Net programming",
+      "Data Science",
+      "Biology"
+    ],
+    "FirstName": "Arif",
+    "LastName": "Khalifa",
+    "Age": 55
+  },
+  "3": {
+    "TeacherID": "3",
+    "Salary": 31000,
+    "Subjects": [
+      "Art",
+      "History"
+    ],
+    "FirstName": "Carola",
+    "LastName": "H\u00E4ggkvist",
+    "Age": 36
+  },
+  "4": {
+    "TeacherID": "4",
+    "Salary": 42000,
+    "Subjects": [
+      "Art",
+      "History"
+    ],
+    "FirstName": "Ronald",
+    "LastName": "Mcdonald",
+    "Age": 44
+  }
+}

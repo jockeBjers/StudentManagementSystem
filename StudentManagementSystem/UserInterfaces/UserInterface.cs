@@ -5,9 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using StudentManagementSystem.LogicManagers;
-using StudentManagementSystem.Models;
-using StudentManagementSystem.UserInterfaces;
-
 
 namespace StudentManagementSystem.UserInterfaces
 {

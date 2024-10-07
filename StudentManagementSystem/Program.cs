@@ -15,16 +15,16 @@ namespace StudentManagementSystem
         static void Main(string[] args)
         {
 
-            Teacher teacher = new Teacher("John", "Doe", 40, EnumSubjects.Math, EnumSubjects.English);
-            Console.WriteLine(teacher);
-            teacher.PrintSubjects();
+           // Teacher teacher = new Teacher("John", "Doe", 40, 40000, EnumSubjects.Biology, EnumSubjects.English);
+           // Console.WriteLine(teacher);
+           // teacher.PrintSubjects();
 
             studentManager.LoadStudentsFromJson(); // Load existing students at startup
+            teacherManager.LoadTeachersFromJson();
 
-            
-           // UserInterface userInterface = new UserInterface(studentManager, teacherManager);
+            UserInterface userInterface = new UserInterface(studentManager, teacherManager);
 
-           // userInterface.Menu();
+            userInterface.Menu();
 
         }
         //Things to add

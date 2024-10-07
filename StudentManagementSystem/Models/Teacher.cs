@@ -8,36 +8,33 @@ namespace StudentManagementSystem.Models
 {
     public class Teacher : Person
     {
-        private static int lastTeacherID = 0;
-        private int teacherID;
-        private List<EnumSubjects> subjects;
+       
+        public static int lastTeacherID = 1;
 
-        public List<EnumSubjects> Subjects 
-        {
-            get { return subjects; }
-            set { subjects = value; }  
-        }
+  
+        public string TeacherID { get; private set; }
+        public int Salary { get; set; }
+        public List<string> Subjects { get; set; } 
 
-        public int TeacherID
+       
+        public Teacher(string firstName, string lastName, int age, int salary, params string[] subjects)
+            : base(firstName, lastName, age)
         {
-            get { return teacherID; }
-            private set { teacherID = value; }
-        }
-
-        public Teacher(string firstName, string lastName, int age, params EnumSubjects[] subjects) : base(firstName, lastName, age)
-        {
-            TeacherID = ++lastTeacherID;
-            this.subjects = new List<EnumSubjects>(subjects);
+            TeacherID = lastTeacherID++.ToString(); // Assign unique ID and increment
+            Salary = salary;
+            Subjects = new List<string>(subjects); // Initialize subjects list
         }
 
         public Teacher() : base()
         {
-            TeacherID = ++lastTeacherID;
-            this.subjects = new List<EnumSubjects>();
+            TeacherID = lastTeacherID++.ToString();
+            Subjects = new List<string>();
         }
+
+        // Method to print subjects
         public void PrintSubjects()
         {
-            Console.WriteLine("Subjects taught:");
+            Console.WriteLine("- Subjects:");
             foreach (var subject in Subjects)
             {
                 Console.WriteLine($"   {subject}");
@@ -46,8 +43,9 @@ namespace StudentManagementSystem.Models
 
         public override string ToString()
         {
-            return $"Teacher: {FirstName} {LastName}, Age: {Age}, ID: {TeacherID}";
+            return $"{FirstName} {LastName}, Age: {Age}, Salary: {Salary}, ID: {TeacherID}";
         }
     }
+
 
 }
