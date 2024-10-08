@@ -182,7 +182,7 @@
   "8568": {
     "StudentID": "8568",
     "SubjectGrades": {
-      "Math": 95,
+      "Math": 93,
       "English": 90,
       "Science": 85,
       "Biology": 88,
@@ -373,6 +373,22 @@
     ],
     "FirstName": "Carla",
     "LastName": "Inzaghi",
+    "Age": 14
+  },
+  "3387": {
+    "StudentID": "3387",
+    "SubjectGrades": {
+      "Math": 89,
+      "Programming": 91,
+      "Spanish": 67
+    },
+    "Subjects": [
+      "Math",
+      "Programming",
+      "Spanish"
+    ],
+    "FirstName": "Linnea",
+    "LastName": "Hurtig",
     "Age": 14
   }
 }

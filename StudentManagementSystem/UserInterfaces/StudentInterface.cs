@@ -115,6 +115,12 @@ namespace StudentManagementSystem.UserInterfaces
                     Console.WriteLine("Invalid input. Please enter 'y' or 'n'.");
                 }
             }
+            Console.WriteLine("New Student Added!" +
+                "");
+            Console.WriteLine(newStudent.ToString() + "\n");
+            newStudent.PrintSubjectsAndGrades();
+            Console.WriteLine("Press to continue");
+            Console.ReadLine();
         }
 
         private void SearchStudent()
@@ -151,17 +157,66 @@ namespace StudentManagementSystem.UserInterfaces
         // To add, ability to add subjects and remove, similar as for teachers
         private static void ChangeGrade(Student student)
         {
-            string subject = InputHelper.GetUserInput<string>("Enter the subject for which you want to change the grade:");
-            if (student.Subjects.Contains(subject)) 
+            Subject.PrintAvailableSubjects();
+
+            while (true)
             {
-                int newGrade = InputHelper.GetUserInput<int>("Enter new grade between 1 - 100:");
-                student.SetGrade(subject, newGrade);
-                Console.WriteLine("Grade updated successfully.");
+                string subjectInput = InputHelper.GetUserInput<string>("Enter a subject name (or type 'exit' to stop):");
+                if (subjectInput == "exit")
+                {
+                    break;
+                }
+                // Check if the subject is valid
+                if (Subject.AvailableSubjects.Contains(subjectInput))
+                {
+
+                    // Check if the subject is already in the teacher's subjects list and remove it if so. 
+                    if (student.Subjects.Contains(subjectInput))
+                    {
+                        Console.WriteLine($"{subjectInput} is already assigned to the student.");
+
+                        string action = InputHelper.GetUserInput<string>("Do you want to 1. update grade or 2. remove the subject?");
+
+                        if (action == "1")
+                        {
+                            // Update grade
+                            int newGrade = InputHelper.GetUserInput<int>("Enter new grade (1-100):");
+                            student.SetGrade(subjectInput, newGrade); // Update grade
+                            Console.WriteLine("Grade updated successfully.");
+                        }
+                        else if (action == "2")
+                        {
+                            // Remove the subject and associated grade
+                            student.RemoveSubject(subjectInput); // Use the RemoveSubject method
+                            Console.WriteLine($"{subjectInput} removed successfully.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid option. Please enter 1 to update grade or 2 to remove the subject.");
+                        }
+                    }
+                    else
+                    {
+                        int grade = InputHelper.GetUserInput<int>("Enter grade for this subject (1-100):");
+                        student.SetGrade(subjectInput, grade); // Set the grade for the subject
+
+                        // Add the subject if it doesn't exist
+                        student.Subjects.Add(subjectInput);
+                        Console.WriteLine($"{subjectInput} added.");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid subject. Please select a valid subject.");
+                }
             }
-            else
-            {
-                Console.WriteLine($"{subject} is not assigned to this student.");
-            }
+
+            Console.WriteLine("Subjects updated successfully.");
+            Console.WriteLine(student.ToString() + "\n");
+            student.PrintSubjectsAndGrades();
+            Console.WriteLine("Press to continue");
+            Console.ReadLine();
+            Console.Clear();
         }
     }
 }

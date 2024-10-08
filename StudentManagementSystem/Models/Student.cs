@@ -19,7 +19,7 @@ namespace StudentManagementSystem.Models
         public Dictionary<string, int> SubjectGrades { get; set; } = new Dictionary<string, int>();
         public List<string> Subjects { get; set; } = new List<string>();
 
-       
+
         public Student() : base()
         {
             Subjects = new List<string>();
@@ -72,6 +72,20 @@ namespace StudentManagementSystem.Models
             }
         }
 
+        public void RemoveSubject(string subject)
+        {
+            if (Subjects.Contains(subject))
+            {
+                Subjects.Remove(subject); // Remove the subject from the list
+                SubjectGrades.Remove(subject); // Remove the associated grade
+                Console.WriteLine($"{subject} has been removed.");
+            }
+            else
+            {
+                Console.WriteLine($"{subject} is not assigned to this student.");
+            }
+        }
+
         public int? GetGrade(string subject)
         {
             if (SubjectGrades.TryGetValue(subject, out int grade))
@@ -104,7 +118,7 @@ namespace StudentManagementSystem.Models
             }
         }
 
-        public void PrintSubjectsAndGrades() 
+        public void PrintSubjectsAndGrades()
         {
             Console.WriteLine("- Subjects and Grades:");
             foreach (var subject in Subjects)
