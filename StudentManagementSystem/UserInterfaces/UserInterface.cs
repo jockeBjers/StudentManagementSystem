@@ -21,6 +21,7 @@ namespace StudentManagementSystem.UserInterfaces
 
         public void Menu()
         {
+           
             bool exit = false;
             while (!exit)
             {

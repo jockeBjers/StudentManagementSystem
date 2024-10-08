@@ -6,13 +6,19 @@ using System.Threading.Tasks;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Net.Http.Json;
-using Newtonsoft.Json;
 using StudentManagementSystem.Models;
 
 namespace StudentManagementSystem.LogicManagers
 {
     public class StudentManager
     {
+        private TeacherManager teacherManager;
+
+        public StudentManager(TeacherManager teacherManager)
+        {
+            this.teacherManager = teacherManager;
+        }
+
         private Dictionary<string, Student> students = new Dictionary<string, Student>();
 
         // Saving the data in the Data folder, the .. .. takes it up from the debug folder, to ensure it is both loaded and saved in the data folder.
@@ -20,10 +26,10 @@ namespace StudentManagementSystem.LogicManagers
 
         public void AddStudent(Student student)
         {
-            // try to add, else a message that id already exists.
+            // Try to add the student, else display a message if the ID already exists.
             if (students.TryAdd(student.StudentID, student))
             {
-                Student.existingIDs.Add(student.StudentID);
+                Student.existingIDs.Add(student.StudentID); // Add to existing IDs list
             }
             else
             {
@@ -48,65 +54,83 @@ namespace StudentManagementSystem.LogicManagers
         public void PrintStudentsAlphabeticOrder()
         {
             var sortedAlphabetically = students
-                .OrderBy(s => s.Value.LastName) // Order all students by their lastname and print out
+                .OrderBy(s => s.Value.LastName)
                 .ThenBy(s => s.Value.FirstName)
                 .ToList();
-            Console.WriteLine("Sorted by lastnames");
+
+            Console.WriteLine("Sorted by last names:");
             foreach (var student in sortedAlphabetically)
             {
-                Console.WriteLine($"  Student ID: {student.Value.StudentID}  Name: {student.Value.FirstName} {student.Value.LastName}, Age: {student.Value.Age}, Grade: {student.Value.Grade}, Class: {student.Value.Classroom}");
+                Console.WriteLine(student.Value.ToString());
             }
         }
 
-        public void PrintSingleClassroom(string classroom)
+        public void PrintAllSubjects()
         {
-            var studentsInClass = students.Where(s => s.Value.Classroom == classroom)
-                .OrderBy(s => s.Value.LastName)
+            var allSubjects = students.Values
+                .SelectMany(s => s.SubjectGrades.Keys) // Get all subjects from SubjectGrades
+                .Distinct() // Get unique subjects
+                .OrderBy(s => s) // Sort subjects
                 .ToList();
-            if (studentsInClass.Count > 0)
+
+            Console.WriteLine("All Subjects:");
+            foreach (var subject in allSubjects)
             {
-                int studentCount = studentsInClass.Count();
-                Console.WriteLine($"Class: {classroom}, students: {studentCount}");
-                foreach (var student in studentsInClass)
+                // Get the teacher of this subject from TeacherManager
+                var teachersForSubject = teacherManager.GetTeachersBySubject(subject);
+
+                foreach (var teacher in teachersForSubject)
                 {
-                    Console.WriteLine($"  Student ID: {student.Value.StudentID}  Name: {student.Value.FirstName} {student.Value.LastName}, Age: {student.Value.Age}, Grade: {student.Value.Grade}");
+                    Console.WriteLine($"\n- Subject: {subject}, Teacher: {teacher.FirstName} {teacher.LastName}");
                 }
-            }
-            else
-            {
-                Console.WriteLine($"No students found in class {classroom}");
+
+                // Get students in the current subject
+                var studentsInSubject = students.Values
+                    .Where(s => s.SubjectGrades.ContainsKey(subject))
+                    .OrderByDescending(s => s.GetGrade(subject))
+                    .ToList();
+
+                if (studentsInSubject.Count != 0)
+                {
+                    foreach (var student in studentsInSubject)
+                    {
+                        Console.WriteLine("     " + student.ToString() + ", Grade: " + student.GetGrade(subject));
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("  No students found studying this subject.");
+                }
             }
         }
 
-        public void PrintAllClassrooms()
+        public void PrintStudentsBySubject(string subject)
         {
-            // Group students by their classroom
-            var studentsByClass = students.Values.GroupBy(s => s.Classroom);
+            // Get the teacher for this subject from TeacherManager
+            var teachersForSubject = teacherManager.GetTeachersBySubject(subject);
 
-            foreach (var classGroup in studentsByClass)
+            //  students in the specified subject
+            var studentsInSubject = students.Values
+                .Where(s => s.SubjectGrades.ContainsKey(subject))
+                .OrderByDescending(s => s.GetGrade(subject))
+                .ToList();
+
+            foreach (var teacher in teachersForSubject)
             {
-                int studentCount = classGroup.Count();
-                var averageGrade = classGroup.Average(s => s.Grade); // count the students in each group and their average
-
-                // Print out the various classes
-                Console.WriteLine($"\nClass: {classGroup.Key} Total students: {studentCount}, Average Grade: {averageGrade:F2}");
-
-                // next loop to sort by grade
-                var eachClass = classGroup.ToDictionary(s => s.StudentID)
-                    .OrderByDescending(s => s.Value.Grade);
-                foreach (var student in eachClass)
-                {
-                    Console.WriteLine($"    Student ID: {student.Value.StudentID}  Name: {student.Value.FirstName} {student.Value.LastName}, Age: {student.Value.Age}, Grade: {student.Value.Grade}");
-                }
+                Console.WriteLine($"\n- Subject: {subject}, Students in class: {studentsInSubject.Count}, Teacher: {teacher.FirstName} {teacher.LastName}");
             }
-            // Print the average grade of all students
-            var overallAverageGrade = students.Values.Average(s => s.Grade);
-            Console.WriteLine($"\nAverage Grade of All Students: {overallAverageGrade:F2}");
+
+            // Print students in subject
+            foreach (var student in studentsInSubject)
+            {
+                Console.WriteLine("     " + student.ToString() + ", Grade: " + student.GetGrade(subject));
+
+            }
         }
 
         public Student? GetStudentById(string studentID)
         {
-            if (students.TryGetValue(studentID, out var student))  // for searching for student to update
+            if (students.TryGetValue(studentID, out var student))
             {
                 return student;
             }
@@ -115,16 +139,6 @@ namespace StudentManagementSystem.LogicManagers
                 Console.WriteLine("Student not found.");
                 return null;
             }
-        }
-
-        public List<string> GetAllClassrooms()
-        {
-            // Get a distinct list of all classrooms from the students
-            return students.Values
-                  .Where(s => !string.IsNullOrEmpty(s.Classroom)) // Ensure the classroom is not null or empty
-                  .Select(s => s.Classroom)
-                  .Distinct() // Makes sure each class room is only printed once
-                  .ToList();
         }
 
         public void SaveStudentsToJson()

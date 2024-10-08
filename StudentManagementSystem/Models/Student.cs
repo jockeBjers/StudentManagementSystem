@@ -5,44 +5,39 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using System;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
+
 
 namespace StudentManagementSystem.Models
 {
     public class Student : Person
     {
         public static List<string> existingIDs = new(); // To track existing IDs
-        public string StudentID { get; set; } 
-        public string Classroom { get; set; }
-        private int grade;
+        public string StudentID { get; set; }
+        public Dictionary<string, int> SubjectGrades { get; set; } = new Dictionary<string, int>();
+        public List<string> Subjects { get; set; } = new List<string>();
 
-        public int Grade
+       
+        public Student() : base()
         {
-            get { return grade; }
-            set
+            Subjects = new List<string>();
+            SubjectGrades = new Dictionary<string, int>();
+        }
+
+        // Constructor for creating a new student
+        public Student(string firstName, string lastName, int age, string studentID, params string[] subjects)
+        : base(firstName, lastName, age)
+        {
+
+            StudentID = studentID; // Assign ID from the constructor
+            existingIDs.Add(StudentID); // Add the ID to the list of existing IDs
+            Subjects = new List<string>(subjects);
+            foreach (var subject in subjects)
             {
-                if (value >= 1 && value <= 100)
-                {
-                    grade = value;
-                }
-                else
-                {
-                    Console.WriteLine("Grade must be between 1 and 100.");
-                }
+                SubjectGrades[subject] = 0; // Default grade is 0
             }
-        }
-
-        public Student() : base()  // Calling the base class constructor with default values
-        {
-            
-        }
-        
-        public Student(string firstName, string lastName, int age, int grade, string classroom)
-            : base(firstName, lastName, age)
-        {
-            Grade = grade;
-            Classroom = classroom;
-            StudentID = GenerateStudentID(); // Automatically generate StudentID 
-            existingIDs.Add(StudentID); // Add the generated ID to the list of existing IDs
         }
 
         // Method to generate unique Student ID
@@ -62,6 +57,72 @@ namespace StudentManagementSystem.Models
         public static void RemoveStudentID(string id)
         {
             existingIDs.Remove(id);
+        }
+
+        // Method to add a subject to the student
+        public void AddSubject(string subject)
+        {
+            if (!Subjects.Contains(subject))
+            {
+                Subjects.Add(subject);
+            }
+            else
+            {
+                Console.WriteLine($"{subject} already assigned");
+            }
+        }
+
+        public int? GetGrade(string subject)
+        {
+            if (SubjectGrades.TryGetValue(subject, out int grade))
+            {
+                return grade; // Return the grade if found
+            }
+            else
+            {
+                Console.WriteLine($"{subject} is not assigned to this student.");
+                return null; // Return null if the subject is not found
+            }
+        }
+
+        public void SetGrade(string subject, int grade)
+        {
+            if (Subjects.Contains(subject))
+            {
+                if (grade >= 1 && grade <= 100)
+                {
+                    SubjectGrades[subject] = grade;
+                }
+                else
+                {
+                    Console.WriteLine("Grade must be between 1 and 100.");
+                }
+            }
+            else
+            {
+                Console.WriteLine($"{subject} is not assigned to this student.");
+            }
+        }
+
+        public void PrintSubjectsAndGrades() 
+        {
+            Console.WriteLine("- Subjects and Grades:");
+            foreach (var subject in Subjects)
+            {
+                if (SubjectGrades.TryGetValue(subject, out int grade))
+                {
+                    Console.WriteLine($"   {subject}: {grade}");
+                }
+                else
+                {
+                    Console.WriteLine($"   {subject}: No grade assigned");
+                }
+            }
+        }
+
+        public override string ToString()
+        {
+            return $"Student ID: {StudentID}  Name: {FirstName} {LastName}, Age: {Age}";
         }
     }
 }

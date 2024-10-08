@@ -66,6 +66,13 @@ public class TeacherManager
         }
     }
 
+    public List<Teacher> GetTeachersBySubject(string subject)
+    {
+        return teachers.Values
+            .Where(t => t.Subjects.Contains(subject))
+            .ToList();
+    }
+
     public void SaveTeachersToJson()
     {
         try

@@ -3,8 +3,7 @@
     "TeacherID": "1",
     "Salary": 50000,
     "Subjects": [
-      "Math",
-      "English"
+      "Math"
     ],
     "FirstName": "Karl",
     "LastName": "Gustavsson",
@@ -12,11 +11,9 @@
   },
   "2": {
     "TeacherID": "2",
-    "Salary": 45000,
+    "Salary": 75000,
     "Subjects": [
-      ".Net programming",
-      "Data Science",
-      "Biology"
+      "Programming"
     ],
     "FirstName": "Arif",
     "LastName": "Khalifa",
@@ -26,7 +23,6 @@
     "TeacherID": "3",
     "Salary": 31000,
     "Subjects": [
-      "Art",
       "History"
     ],
     "FirstName": "Carola",
@@ -37,11 +33,53 @@
     "TeacherID": "4",
     "Salary": 42000,
     "Subjects": [
-      "Art",
-      "History"
+      "Art"
     ],
     "FirstName": "Ronald",
     "LastName": "Mcdonald",
     "Age": 44
+  },
+  "5": {
+    "TeacherID": "5",
+    "Salary": 38000,
+    "Subjects": [
+      "English",
+      "Science"
+    ],
+    "FirstName": "Robert",
+    "LastName": "Hall",
+    "Age": 36
+  },
+  "6": {
+    "TeacherID": "6",
+    "Salary": 48000,
+    "Subjects": [
+      "Music",
+      "Spanish"
+    ],
+    "FirstName": "Camilo",
+    "LastName": "CienFuegos",
+    "Age": 78
+  },
+  "7": {
+    "TeacherID": "7",
+    "Salary": 39000,
+    "Subjects": [
+      "Physics",
+      "Biology"
+    ],
+    "FirstName": "Jack",
+    "LastName": "Hammer",
+    "Age": 51
+  },
+  "8": {
+    "TeacherID": "8",
+    "Salary": 25000,
+    "Subjects": [
+      "Gymnastics"
+    ],
+    "FirstName": "Sandra",
+    "LastName": "Andersson",
+    "Age": 31
   }
 }

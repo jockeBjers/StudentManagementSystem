@@ -20,6 +20,7 @@ namespace StudentManagementSystem.UserInterfaces
 
         public void Menu()
         {
+            Console.Clear();
             bool exit = false;
             while (!exit)
             {
@@ -42,6 +43,7 @@ namespace StudentManagementSystem.UserInterfaces
                         SearchTeacher();
                         break;
                     case "4":
+                        Console.Clear();
                         Console.WriteLine("Goodbye!");
                         teacherManager.SaveTeachersToJson();
                         exit = true;
@@ -55,6 +57,8 @@ namespace StudentManagementSystem.UserInterfaces
 
         private void AddTeacher()
         {
+            Console.Clear();
+
             string firstName = InputHelper.GetUserInput<string>("Enter teacher's first name:");
             string lastName = InputHelper.GetUserInput<string>("Enter teacher's last name:");
             int age = InputHelper.GetUserInput<int>("Enter teacher's age:");
@@ -75,22 +79,22 @@ namespace StudentManagementSystem.UserInterfaces
             // Call the method from the Subject class to print available subjects
             Subject.PrintAvailableSubjects();
 
-            string subjectInput;
+            string input;
             do
             {
-                subjectInput = InputHelper.GetUserInput<string>("Enter a subject name (or type 'exit' to stop):");
+                input = InputHelper.GetUserInput<string>("Enter a subject name (or type 'exit' to stop):");
 
-                if (subjectInput.ToLower() != "exit" && Subject.AvailableSubjects.Contains(subjectInput))
+                if (input.ToLower() != "exit" && Subject.AvailableSubjects.Contains(input))
                 {
-                    subjectsList.Add(subjectInput);
-                    Console.WriteLine($"{subjectInput} added.");
+                    subjectsList.Add(input);
+                    Console.WriteLine($"{input} added.");
                 }
-                else if (subjectInput.ToLower() != "exit")
+                else if (input.ToLower() != "exit")
                 {
                     Console.WriteLine("Invalid subject. Please select a valid subject.");
                 }
 
-            } while (subjectInput.ToLower() != "exit");
+            } while (input.ToLower() != "exit"); // loop again until input is exit
 
             return subjectsList;
         }
@@ -107,17 +111,16 @@ namespace StudentManagementSystem.UserInterfaces
                 Console.WriteLine(foundTeacher.ToString()); // Print the teacher's details
                 foundTeacher.PrintSubjects(); // Print their subjects
 
-                // Prompt the user for the next action
-                string action = InputHelper.GetUserInput<string>("Would you like to (1) Update or (2) Remove this teacher? (Enter 1 or 2):");
+                string input = InputHelper.GetUserInput<string>("Press:\n1. To update\n2. To remove this teacher");
 
-                switch (action)
+                switch (input)
                 {
                     case "1":
                         UpdateTeacher(foundTeacher);
                         break;
                     case "2":
                         teacherManager.RemoveTeacherById(teacherID);
-                        Console.WriteLine("Student removed successfully.");
+                        Console.WriteLine("Teacher removed successfully.");
                         break;
                     default:
                         Console.WriteLine("Invalid option. Returning to the main menu.");
@@ -151,43 +154,30 @@ namespace StudentManagementSystem.UserInterfaces
                 {
                     case "1":
                         string newFirstName = InputHelper.GetUserInput<string>("Enter new first name:");
-                        teacher.FirstName = newFirstName; // Update without check
+                        teacher.FirstName = newFirstName;
                         Console.WriteLine("First name updated successfully.");
                         break;
 
                     case "2":
                         string newLastName = InputHelper.GetUserInput<string>("Enter new last name:");
-                        teacher.LastName = newLastName; // Update without check
+                        teacher.LastName = newLastName;
                         Console.WriteLine("Last name updated successfully.");
                         break;
 
                     case "3":
                         int newAge = InputHelper.GetUserInput<int>("Enter new age:");
-                        teacher.Age = newAge; // Update without check
+                        teacher.Age = newAge;
                         Console.WriteLine("Age updated successfully.");
                         break;
 
                     case "4":
                         int newSalary = InputHelper.GetUserInput<int>("Enter new salary:");
-                        teacher.Salary = newSalary; // Update without check
+                        teacher.Salary = newSalary;
                         Console.WriteLine("Salary updated successfully.");
                         break;
 
                     case "5":
-                        List<string> newSubjects = GetTeacherSubjects(); // Get updated subjects from user
-                        foreach (var subject in newSubjects)
-                        {
-                            if (!teacher.Subjects.Contains(subject))
-                            {
-                                teacher.Subjects.Add(subject); // Add if it doesn't already exist
-                                Console.WriteLine($"{subject} added.");
-                            }
-                            else
-                            {
-                                Console.WriteLine($"{subject} already exists and was not added.");
-                            }
-                        }
-                        Console.WriteLine("Subjects updated successfully.");
+                        updateSubjects(teacher);  // calling a method to keep the switch clean
                         break;
 
                     case "6":
@@ -198,13 +188,48 @@ namespace StudentManagementSystem.UserInterfaces
                         Console.WriteLine("Invalid option. Please try again.");
                         break;
                 }
-                // Pause after each update for user to read the message
+
                 Console.WriteLine("Press to continue: ");
                 Console.ReadLine();
             }
 
             Console.WriteLine("Teacher updated successfully.");
+        }
 
+        public void updateSubjects(Teacher teacher)
+        {
+            Subject.PrintAvailableSubjects();
+
+            while (true)
+            {
+                string subjectInput = InputHelper.GetUserInput<string>("Enter a subject name (or type 'exit' to stop):");
+                if(subjectInput == "exit")
+                {
+                    break;
+                }
+                // Check if the subject is valid
+                if (Subject.AvailableSubjects.Contains(subjectInput))
+                {
+                    // Check if the subject is already in the teacher's subjects list and remove it if so. 
+                    if (teacher.Subjects.Contains(subjectInput))
+                    {
+                        Console.WriteLine($"{subjectInput} is already in the teacher's subjects. It will be removed.");
+                        teacher.Subjects.Remove(subjectInput);
+                    }
+                    else
+                    {
+                        // Add the subject if it doesn't exist
+                        teacher.Subjects.Add(subjectInput);
+                        Console.WriteLine($"{subjectInput} added.");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid subject. Please select a valid subject.");
+                }
+            }
+
+            Console.WriteLine("Subjects updated successfully.");
         }
     }
 }

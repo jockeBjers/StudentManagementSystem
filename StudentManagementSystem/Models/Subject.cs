@@ -12,17 +12,18 @@ namespace StudentManagementSystem.Models
 
         public static List<string> AvailableSubjects { get; } = new List<string>
             {
-                "Math",
-                "English",
-                "Science",
-                "Music",
-                "Physics",
-                "Spanish",
-                "Biology",
-                "Gymnastics",
-                ".Net Programming",
-                "Art",
-                "History"
+                "Math", 
+                "English", 
+                "Science", 
+                "Music", 
+                "Physics", 
+                "Spanish", 
+                "Biology", 
+                "Gymnastics", 
+                "Programming", 
+                "Art", 
+                "History", 
+                "Data-Science" 
             };
 
         public static void PrintAvailableSubjects()
@@ -34,8 +35,4 @@ namespace StudentManagementSystem.Models
             }
         }
     }
-
-
-
-
 }

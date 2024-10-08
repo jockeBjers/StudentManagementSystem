@@ -1,466 +1,378 @@
 {
   "9010": {
     "StudentID": "9010",
-    "Classroom": "a1",
-    "Grade": 66,
+    "SubjectGrades": {
+      "Math": 66,
+      "English": 70,
+      "Biology": 75,
+      "History": 80,
+      "Art": 65
+    },
+    "Subjects": [
+      "Math",
+      "English",
+      "Biology",
+      "History",
+      "Art"
+    ],
     "FirstName": "Lelle",
     "LastName": "Axelsson",
     "Age": 14
   },
   "9883": {
     "StudentID": "9883",
-    "Classroom": "a1",
-    "Grade": 45,
+    "SubjectGrades": {
+      "Math": 45,
+      "English": 50,
+      "Spanish": 60,
+      "Programming": 70,
+      "Physics": 55
+    },
+    "Subjects": [
+      "Math",
+      "English",
+      "Spanish",
+      "Programming",
+      "Physics"
+    ],
     "FirstName": "Maja",
     "LastName": "Maijard",
     "Age": 14
   },
   "1515": {
     "StudentID": "1515",
-    "Classroom": "a2",
-    "Grade": 11,
+    "SubjectGrades": {
+      "Math": 11,
+      "English": 15,
+      "Music": 14,
+      "Gymnastics": 18,
+      "History": 20
+    },
+    "Subjects": [
+      "Math",
+      "English",
+      "Music",
+      "Gymnastics",
+      "History"
+    ],
     "FirstName": "Daniel",
     "LastName": "Radcliffe",
     "Age": 15
   },
   "8211": {
     "StudentID": "8211",
-    "Classroom": "a1",
-    "Grade": 98,
+    "SubjectGrades": {
+      "Math": 98,
+      "English": 90,
+      "Biology": 88,
+      "Physics": 92,
+      "Art": 94
+    },
+    "Subjects": [
+      "Math",
+      "English",
+      "Biology",
+      "Physics",
+      "Art"
+    ],
     "FirstName": "Joakim",
     "LastName": "Bjerselius",
     "Age": 14
   },
   "4436": {
     "StudentID": "4436",
-    "Classroom": "a1",
-    "Grade": 44,
+    "SubjectGrades": {
+      "Math": 44,
+      "English": 50,
+      "Science": 46,
+      "Spanish": 48,
+      "History": 42
+    },
+    "Subjects": [
+      "Math",
+      "English",
+      "Science",
+      "Spanish",
+      "History"
+    ],
     "FirstName": "Arto",
     "LastName": "Lukio",
     "Age": 15
   },
   "2668": {
     "StudentID": "2668",
-    "Classroom": "a1",
-    "Grade": 74,
+    "SubjectGrades": {
+      "Math": 74,
+      "English": 78,
+      "Music": 80,
+      "Biology": 70,
+      "Physics": 65
+    },
+    "Subjects": [
+      "Math",
+      "English",
+      "Music",
+      "Biology",
+      "Physics"
+    ],
     "FirstName": "Katja",
     "LastName": "Henricks",
     "Age": 12
   },
   "9298": {
     "StudentID": "9298",
-    "Classroom": "a1",
-    "Grade": 28,
+    "SubjectGrades": {
+      "Math": 28,
+      "English": 35,
+      "Gymnastics": 40,
+      "Art": 25,
+      "Biology": 30
+    },
+    "Subjects": [
+      "Math",
+      "English",
+      "Gymnastics",
+      "Art",
+      "Biology"
+    ],
     "FirstName": "Mikael",
     "LastName": "Mora",
     "Age": 14
   },
   "3170": {
     "StudentID": "3170",
-    "Classroom": "a2",
-    "Grade": 33,
+    "SubjectGrades": {
+      "Math": 33,
+      "English": 36,
+      "Programming": 40,
+      "Science": 38,
+      "History": 32
+    },
+    "Subjects": [
+      "Math",
+      "English",
+      "Programming",
+      "Science",
+      "History"
+    ],
     "FirstName": "Magnus",
     "LastName": "Magnusson",
     "Age": 15
   },
   "5701": {
     "StudentID": "5701",
-    "Classroom": "a2",
-    "Grade": 92,
+    "SubjectGrades": {
+      "Math": 92,
+      "English": 88,
+      "Spanish": 85,
+      "Gymnastics": 90,
+      "Art": 89
+    },
+    "Subjects": [
+      "Math",
+      "English",
+      "Spanish",
+      "Gymnastics",
+      "Art"
+    ],
     "FirstName": "Jenny",
     "LastName": "Kalix",
     "Age": 14
   },
   "8568": {
     "StudentID": "8568",
-    "Classroom": "a2",
-    "Grade": 95,
+    "SubjectGrades": {
+      "Math": 95,
+      "English": 90,
+      "Science": 85,
+      "Biology": 88,
+      "Programming": 90
+    },
+    "Subjects": [
+      "Math",
+      "English",
+      "Science",
+      "Biology",
+      "Programming"
+    ],
     "FirstName": "Jesper",
     "LastName": "Wallentin",
     "Age": 14
   },
   "9663": {
     "StudentID": "9663",
-    "Classroom": "a2",
-    "Grade": 82,
+    "SubjectGrades": {
+      "Math": 82,
+      "English": 80,
+      "Physics": 78,
+      "Art": 85,
+      "Spanish": 75
+    },
+    "Subjects": [
+      "Math",
+      "English",
+      "Physics",
+      "Art",
+      "Spanish"
+    ],
     "FirstName": "Viktor",
     "LastName": "Th\u00F6rn",
     "Age": 13
   },
   "5498": {
     "StudentID": "5498",
-    "Classroom": "a2",
-    "Grade": 77,
+    "SubjectGrades": {
+      "Math": 77,
+      "English": 75,
+      "Programming": 80,
+      "Gymnastics": 70,
+      "History": 76
+    },
+    "Subjects": [
+      "Math",
+      "English",
+      "Programming",
+      "Gymnastics",
+      "History"
+    ],
     "FirstName": "Carlos",
     "LastName": "Fuerte",
     "Age": 14
   },
   "8363": {
     "StudentID": "8363",
-    "Classroom": "a2",
-    "Grade": 67,
+    "SubjectGrades": {
+      "Math": 67,
+      "English": 70,
+      "Physics": 65,
+      "Music": 75,
+      "Art": 72
+    },
+    "Subjects": [
+      "Math",
+      "English",
+      "Physics",
+      "Music",
+      "Art"
+    ],
     "FirstName": "Jenny",
     "LastName": "Kvist",
     "Age": 14
   },
   "1192": {
     "StudentID": "1192",
-    "Classroom": "a2",
-    "Grade": 78,
+    "SubjectGrades": {
+      "Math": 78,
+      "English": 80,
+      "History": 75,
+      "Gymnastics": 82,
+      "Art": 84
+    },
+    "Subjects": [
+      "Math",
+      "English",
+      "History",
+      "Gymnastics",
+      "Art"
+    ],
     "FirstName": "Karl",
     "LastName": "Gustavsson",
     "Age": 14
   },
   "4862": {
     "StudentID": "4862",
-    "Classroom": "a2",
-    "Grade": 69,
+    "SubjectGrades": {
+      "Math": 69,
+      "English": 70,
+      "Physics": 72,
+      "Science": 74,
+      "Biology": 71
+    },
+    "Subjects": [
+      "Math",
+      "English",
+      "Physics",
+      "Science",
+      "Biology"
+    ],
     "FirstName": "Elin",
     "LastName": "Ragnarsson",
     "Age": 14
   },
   "3166": {
     "StudentID": "3166",
-    "Classroom": "a1",
-    "Grade": 52,
+    "SubjectGrades": {
+      "Math": 52,
+      "English": 55,
+      "Gymnastics": 60,
+      "History": 58,
+      "Programming": 62
+    },
+    "Subjects": [
+      "Math",
+      "English",
+      "Gymnastics",
+      "History",
+      "Programming"
+    ],
     "FirstName": "Jesper",
     "LastName": "Hammarsk\u00F6ld",
     "Age": 14
   },
   "5734": {
     "StudentID": "5734",
-    "Classroom": "a2",
-    "Grade": 53,
+    "SubjectGrades": {
+      "Math": 64,
+      "English": 66,
+      "Art": 70,
+      "Gymnastics": 68,
+      "Science": 65
+    },
+    "Subjects": [
+      "Math",
+      "English",
+      "Art",
+      "Gymnastics",
+      "Science"
+    ],
     "FirstName": "Dagbert",
     "LastName": "Elis",
     "Age": 13
   },
-  "9115": {
-    "StudentID": "9115",
-    "Classroom": "a1",
-    "Grade": 94,
-    "FirstName": "Camilo",
-    "LastName": "Cienfuegos",
-    "Age": 13
-  },
-  "3895": {
-    "StudentID": "3895",
-    "Classroom": "a1",
-    "Grade": 84,
-    "FirstName": "Elisa",
-    "LastName": "Cuthbert",
-    "Age": 14
-  },
-  "8622": {
-    "StudentID": "8622",
-    "Classroom": "a2",
-    "Grade": 89,
-    "FirstName": "Roxana",
-    "LastName": "Guiterrez",
-    "Age": 14
-  },
-  "8875": {
-    "StudentID": "8875",
-    "Classroom": "a2",
-    "Grade": 89,
-    "FirstName": "Luigi",
-    "LastName": "Macaravelli",
-    "Age": 13
-  },
-  "2265": {
-    "StudentID": "2265",
-    "Classroom": "a1",
-    "Grade": 14,
-    "FirstName": "Mackey",
-    "LastName": "Wildfire",
-    "Age": 15
-  },
-  "6638": {
-    "StudentID": "6638",
-    "Classroom": "a1",
-    "Grade": 74,
-    "FirstName": "Kenny",
-    "LastName": "Kamrat",
-    "Age": 15
-  },
-  "7975": {
-    "StudentID": "7975",
-    "Classroom": "a1",
-    "Grade": 19,
-    "FirstName": "Marko",
-    "LastName": "Bj\u00F6rn",
-    "Age": 12
-  },
-  "5656": {
-    "StudentID": "5656",
-    "Classroom": "a3",
-    "Grade": 67,
-    "FirstName": "Clark",
-    "LastName": "Kent",
-    "Age": 14
-  },
-  "6880": {
-    "StudentID": "6880",
-    "Classroom": "a3",
-    "Grade": 22,
-    "FirstName": "Ken",
-    "LastName": "Park",
-    "Age": 15
-  },
-  "5556": {
-    "StudentID": "5556",
-    "Classroom": "a3",
-    "Grade": 56,
-    "FirstName": "Roger",
-    "LastName": "Andersson",
-    "Age": 14
-  },
-  "3855": {
-    "StudentID": "3855",
-    "Classroom": "a3",
-    "Grade": 88,
-    "FirstName": "Kim",
-    "LastName": "Stark",
-    "Age": 14
-  },
-  "5768": {
-    "StudentID": "5768",
-    "Classroom": "a3",
-    "Grade": 43,
-    "FirstName": "Lukas",
-    "LastName": "Mynning",
-    "Age": 13
-  },
-  "2293": {
-    "StudentID": "2293",
-    "Classroom": "a3",
-    "Grade": 66,
-    "FirstName": "Raider",
-    "LastName": "Fylking",
-    "Age": 14
-  },
-  "4611": {
-    "StudentID": "4611",
-    "Classroom": "a3",
-    "Grade": 74,
-    "FirstName": "Malte",
-    "LastName": "Malm",
-    "Age": 13
-  },
-  "4657": {
-    "StudentID": "4657",
-    "Classroom": "a3",
-    "Grade": 34,
-    "FirstName": "Henku",
-    "LastName": "Lappiala",
-    "Age": 14
-  },
-  "3328": {
-    "StudentID": "3328",
-    "Classroom": "a3",
-    "Grade": 55,
-    "FirstName": "Lucio",
-    "LastName": "Mangheleis",
-    "Age": 13
-  },
-  "3193": {
-    "StudentID": "3193",
-    "Classroom": "a3",
-    "Grade": 19,
-    "FirstName": "Ragnar",
-    "LastName": "Lotbrok",
-    "Age": 13
-  },
-  "1839": {
-    "StudentID": "1839",
-    "Classroom": "a3",
-    "Grade": 92,
-    "FirstName": "Selma",
-    "LastName": "Hinniger",
-    "Age": 14
-  },
-  "6214": {
-    "StudentID": "6214",
-    "Classroom": "a3",
-    "Grade": 88,
-    "FirstName": "Tyra",
-    "LastName": "Lindkvist",
-    "Age": 14
-  },
-  "9388": {
-    "StudentID": "9388",
-    "Classroom": "a3",
-    "Grade": 18,
-    "FirstName": "Jenny",
-    "LastName": "Kaijo",
-    "Age": 15
-  },
-  "4417": {
-    "StudentID": "4417",
-    "Classroom": "a1",
-    "Grade": 55,
-    "FirstName": "Wilmer",
-    "LastName": "Fenix",
-    "Age": 13
-  },
-  "6907": {
-    "StudentID": "6907",
-    "Classroom": "a4",
-    "Grade": 74,
-    "FirstName": "Max",
-    "LastName": "Martin",
-    "Age": 14
-  },
-  "3335": {
-    "StudentID": "3335",
-    "Classroom": "a4",
-    "Grade": 85,
-    "FirstName": "Linnea",
-    "LastName": "Johansson",
-    "Age": 15
-  },
-  "1829": {
-    "StudentID": "1829",
-    "Classroom": "a4",
-    "Grade": 67,
-    "FirstName": "Emil",
-    "LastName": "Andersen",
-    "Age": 16
-  },
-  "9625": {
-    "StudentID": "9625",
-    "Classroom": "a4",
-    "Grade": 92,
-    "FirstName": "Astrid",
-    "LastName": "Eriksen",
-    "Age": 14
-  },
-  "9279": {
-    "StudentID": "9279",
-    "Classroom": "a4",
-    "Grade": 76,
-    "FirstName": "Nils",
-    "LastName": "Olsson",
-    "Age": 15
-  },
-  "9434": {
-    "StudentID": "9434",
-    "Classroom": "a4",
-    "Grade": 88,
-    "FirstName": "Freja",
-    "LastName": "Svensson",
-    "Age": 13
-  },
-  "3952": {
-    "StudentID": "3952",
-    "Classroom": "a4",
-    "Grade": 50,
-    "FirstName": "Lars",
-    "LastName": "Nilsen",
-    "Age": 14
-  },
-  "5858": {
-    "StudentID": "5858",
-    "Classroom": "a4",
-    "Grade": 90,
-    "FirstName": "Signe",
-    "LastName": "Karlsson",
-    "Age": 15
-  },
-  "5805": {
-    "StudentID": "5805",
-    "Classroom": "a4",
-    "Grade": 65,
-    "FirstName": "Bj\u00F6rn",
+  "6648": {
+    "StudentID": "6648",
+    "SubjectGrades": {
+      "Math": 90,
+      "English": 85,
+      "Art": 92,
+      "Music": 88,
+      "History": 76
+    },
+    "Subjects": [
+      "Math",
+      "English",
+      "Art",
+      "Music",
+      "History"
+    ],
+    "FirstName": "Eva",
     "LastName": "Pettersson",
-    "Age": 16
-  },
-  "2430": {
-    "StudentID": "2430",
-    "Classroom": "a4",
-    "Grade": 80,
-    "FirstName": "Ingrid",
-    "LastName": "Jensen",
-    "Age": 14
-  },
-  "6509": {
-    "StudentID": "6509",
-    "Classroom": "a4",
-    "Grade": 72,
-    "FirstName": "Magnus",
-    "LastName": "Larsson",
     "Age": 15
   },
-  "9899": {
-    "StudentID": "9899",
-    "Classroom": "a4",
-    "Grade": 78,
-    "FirstName": "Elin",
-    "LastName": "Nystr\u00F6m",
-    "Age": 14
-  },
-  "1026": {
-    "StudentID": "1026",
-    "Classroom": "a1",
-    "Grade": 69,
-    "FirstName": "Lina",
-    "LastName": "\u00D6man",
-    "Age": 13
-  },
-  "5628": {
-    "StudentID": "5628",
-    "Classroom": "a4",
-    "Grade": 22,
-    "FirstName": "Eigor",
-    "LastName": "Rustavelli",
-    "Age": 12
-  },
-  "3966": {
-    "StudentID": "3966",
-    "Classroom": "a2",
-    "Grade": 56,
-    "FirstName": "Frank",
-    "LastName": "Dandy",
-    "Age": 15
-  },
-  "3934": {
-    "StudentID": "3934",
-    "Classroom": "a2",
-    "Grade": 75,
-    "FirstName": "Marius",
-    "LastName": "Franca",
-    "Age": 15
-  },
-  "4895": {
-    "StudentID": "4895",
-    "Classroom": "a3",
-    "Grade": 83,
-    "FirstName": "Erin",
-    "LastName": "Charlander",
-    "Age": 14
-  },
-  "2562": {
-    "StudentID": "2562",
-    "Classroom": "a4",
-    "Grade": 56,
-    "FirstName": "Malin",
-    "LastName": "Eriksson",
-    "Age": 14
-  },
-  "5848": {
-    "StudentID": "5848",
-    "Classroom": "a4",
-    "Grade": 77,
-    "FirstName": "Lizzy",
-    "LastName": "Macquire",
-    "Age": 14
-  },
-  "9390": {
-    "StudentID": "9390",
-    "Classroom": "a1",
-    "Grade": 90,
-    "FirstName": "Fredrik",
-    "LastName": "Hammarsk\u00F6ld",
+  "9275": {
+    "StudentID": "9275",
+    "SubjectGrades": {
+      "Math": 55,
+      "English": 68,
+      "Programming": 89
+    },
+    "Subjects": [
+      "Math",
+      "English",
+      "Programming"
+    ],
+    "FirstName": "Carla",
+    "LastName": "Inzaghi",
     "Age": 14
   }
 }

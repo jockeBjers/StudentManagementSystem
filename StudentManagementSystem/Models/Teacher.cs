@@ -8,15 +8,11 @@ namespace StudentManagementSystem.Models
 {
     public class Teacher : Person
     {
-       
         public static int lastTeacherID = 1;
-
-  
         public string TeacherID { get; private set; }
         public int Salary { get; set; }
-        public List<string> Subjects { get; set; } 
+        public List<string> Subjects { get; set; }
 
-       
         public Teacher(string firstName, string lastName, int age, int salary, params string[] subjects)
             : base(firstName, lastName, age)
         {
@@ -46,6 +42,4 @@ namespace StudentManagementSystem.Models
             return $"{FirstName} {LastName}, Age: {Age}, Salary: {Salary}, ID: {TeacherID}";
         }
     }
-
-
 }

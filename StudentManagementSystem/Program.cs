@@ -9,16 +9,11 @@ namespace StudentManagementSystem
 {
     public class Program
     {
-        private static StudentManager studentManager = new(); // Instance for managing students
         private static TeacherManager teacherManager = new();
+        private static StudentManager studentManager = new(teacherManager); // Instance for managing students
 
         static void Main(string[] args)
         {
-
-           // Teacher teacher = new Teacher("John", "Doe", 40, 40000, EnumSubjects.Biology, EnumSubjects.English);
-           // Console.WriteLine(teacher);
-           // teacher.PrintSubjects();
-
             studentManager.LoadStudentsFromJson(); // Load existing students at startup
             teacherManager.LoadTeachersFromJson();
 
@@ -27,8 +22,5 @@ namespace StudentManagementSystem
             userInterface.Menu();
 
         }
-        //Things to add
-        // add person class for future use, to add teachers
-        // subjects for both teachers and students. 
     }
 }
