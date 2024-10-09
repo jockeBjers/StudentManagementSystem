@@ -63,17 +63,19 @@
     "StudentID": "8211",
     "SubjectGrades": {
       "Math": 98,
-      "English": 90,
+      "English": 92,
       "Biology": 88,
       "Physics": 92,
-      "Art": 94
+      "Art": 94,
+      "History": 75
     },
     "Subjects": [
       "Math",
       "English",
       "Biology",
       "Physics",
-      "Art"
+      "Art",
+      "History"
     ],
     "FirstName": "Joakim",
     "LastName": "Bjerselius",

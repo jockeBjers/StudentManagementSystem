@@ -176,14 +176,14 @@ namespace StudentManagementSystem.UserInterfaces
                         string action = InputHelper.GetUserInput<string>("Do you want to 1. update grade or 2. remove the subject?");
 
                         if (action == "1") // change grade in the found subject
-                        {  
+                        {
                             int newGrade = InputHelper.GetUserInput<int>("Enter new grade (1-100):");
                             student.SetGrade(subjectInput, newGrade); // Update grade
                             Console.WriteLine("Grade updated successfully.");
                         }
                         else if (action == "2")  // Remove the subject and grade 
                         {
-                            student.RemoveSubject(subjectInput);  
+                            student.RemoveSubject(subjectInput);
                             Console.WriteLine($"{subjectInput} removed successfully.");
                         }
                         else
@@ -194,10 +194,11 @@ namespace StudentManagementSystem.UserInterfaces
                     else
                     {
                         int grade = InputHelper.GetUserInput<int>("Enter grade for this subject (1-100):");
-                        student.SetGrade(subjectInput, grade); // Set the grade for the subject
 
                         // Add the subject if it doesn't exist
                         student.Subjects.Add(subjectInput);
+                        student.SetGrade(subjectInput, grade); // Set the grade for the subject
+
                         Console.WriteLine($"{subjectInput} added.");
                     }
                 }
