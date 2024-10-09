@@ -137,7 +137,7 @@ namespace StudentManagementSystem.UserInterfaces
                 Console.WriteLine(student.ToString() + "\n");
                 student.PrintSubjectsAndGrades(); // Print subjects and grades
 
-                string option = InputHelper.GetUserInput<string>("\nOptions\n1. Change Grade\n2. Remove Student\n3. Press anywhere to go back");
+                string option = InputHelper.GetUserInput<string>("\nOptions\n1. Update subjects and grades\n2. Remove Student\n3. Press anywhere to go back");
                 switch (option)
                 {
                     case "1":
@@ -176,35 +176,11 @@ namespace StudentManagementSystem.UserInterfaces
                     // Check if the subject is already in the student subjects list
                     if (student.Subjects.Contains(subjectInput))
                     {
-                        Console.WriteLine($"{subjectInput} is already assigned to the student.");
-
-                        string action = InputHelper.GetUserInput<string>("Do you want to 1. update grade or 2. remove the subject?");
-
-                        if (action == "1") // change grade in the found subject
-                        {
-                            int newGrade = InputHelper.GetUserInput<int>("Enter new grade (1-100):");
-                            student.SetGrade(subjectInput, newGrade); // Update grade
-                            Console.WriteLine("Grade updated successfully.");
-                        }
-                        else if (action == "2")  // Remove the subject and grade 
-                        {
-                            student.RemoveSubject(subjectInput);
-                            Console.WriteLine($"{subjectInput} removed successfully.");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Invalid option. Please enter 1 to update grade or 2 to remove the subject.");
-                        }
+                        UpdateSubject(student, subjectInput);  // Method to update existing subject
                     }
                     else
                     {
-                        int grade = InputHelper.GetUserInput<int>("Enter grade for this subject (1-100):");
-
-                        // Add the subject if it doesn't exist
-                        student.Subjects.Add(subjectInput);
-                        student.SetGrade(subjectInput, grade); // Set the grade for the subject
-
-                        Console.WriteLine($"{subjectInput} added.");
+                        AddNewSubject(student, subjectInput); //  To add new subject
                     }
                 }
                 else
@@ -219,6 +195,40 @@ namespace StudentManagementSystem.UserInterfaces
             Console.WriteLine("Press to continue");
             Console.ReadLine();
             Console.Clear();
+        }
+
+        private static void UpdateSubject(Student student, string subjectInput)
+        {
+            Console.WriteLine($"{subjectInput} is already assigned to the student.");
+
+            string action = InputHelper.GetUserInput<string>("Do you want to 1. update grade or 2. remove the subject?");
+
+            if (action == "1") // change grade in the found subject
+            {
+                int newGrade = InputHelper.GetUserInput<int>("Enter new grade (1-100):");
+                student.SetGrade(subjectInput, newGrade); // Update grade
+                Console.WriteLine("Grade updated successfully.");
+            }
+            else if (action == "2")  // Remove the subject and grade 
+            {
+                student.RemoveSubject(subjectInput);
+                Console.WriteLine($"{subjectInput} removed successfully.");
+            }
+            else
+            {
+                Console.WriteLine("Invalid option. Please enter 1 to update grade or 2 to remove the subject.");
+            }
+        }
+
+        private static void AddNewSubject(Student student, string subjectInput)
+        {
+            int grade = InputHelper.GetUserInput<int>("Enter grade for this subject (1-100):");
+
+            // Add the subject if it doesn't exist
+            student.Subjects.Add(subjectInput);
+            student.SetGrade(subjectInput, grade); // Set the grade for the subject
+
+            Console.WriteLine($"{subjectInput} added.");
         }
     }
 }
