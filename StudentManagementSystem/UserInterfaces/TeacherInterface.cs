@@ -79,22 +79,25 @@ namespace StudentManagementSystem.UserInterfaces
             // Call the method from the Subject class to print available subjects
             Subject.PrintAvailableSubjects();
 
-            string input;
-            do
+            while (true)
             {
-                input = InputHelper.GetUserInput<string>("Enter a subject name (or type 'exit' to stop):");
+                string input = InputHelper.GetUserInput<string>("Enter a subject name (or type 'exit' to stop):");
 
-                if (input.ToLower() != "exit" && Subject.AvailableSubjects.Contains(input))
+                if (input.ToLower() == "exit")
+                {
+                    break;
+                }
+
+                if (Subject.AvailableSubjects.Contains(input))
                 {
                     subjectsList.Add(input);
                     Console.WriteLine($"{input} added.");
                 }
-                else if (input.ToLower() != "exit")
+                else
                 {
                     Console.WriteLine("Invalid subject. Please select a valid subject.");
                 }
-
-            } while (input.ToLower() != "exit"); // loop again until input is exit
+            }
 
             return subjectsList;
         }
@@ -105,7 +108,7 @@ namespace StudentManagementSystem.UserInterfaces
             string teacherID = InputHelper.GetUserInput<string>("Enter the Teacher ID to search:");
             Teacher? foundTeacher = teacherManager.GetTeacherById(teacherID);
 
-            if (foundTeacher != null) // Check if the teacher was found
+            if (foundTeacher != null) // If teacher is found
             {
                 Console.WriteLine("Teacher found:");
                 Console.WriteLine(foundTeacher.ToString()); // Print the teacher's details
@@ -177,7 +180,7 @@ namespace StudentManagementSystem.UserInterfaces
                         break;
 
                     case "5":
-                        updateSubjects(teacher);  // calling a method to keep the switch clean
+                        UpdateSubjects(teacher);  // calling a method to keep the switch clean
                         break;
 
                     case "6":
@@ -196,14 +199,14 @@ namespace StudentManagementSystem.UserInterfaces
             Console.WriteLine("Teacher updated successfully.");
         }
 
-        public void updateSubjects(Teacher teacher)
+        public void UpdateSubjects(Teacher teacher)
         {
             Subject.PrintAvailableSubjects();
 
             while (true)
             {
                 string subjectInput = InputHelper.GetUserInput<string>("Enter a subject name (or type 'exit' to stop):");
-                if(subjectInput == "exit")
+                if (subjectInput == "exit")
                 {
                     break;
                 }

@@ -8,7 +8,6 @@ namespace StudentManagementSystem.Models
 {
     public class Subject
     {
-        public string Name { get; set; }
 
         public static List<string> AvailableSubjects { get; } = new List<string>
             {
@@ -22,8 +21,7 @@ namespace StudentManagementSystem.Models
                 "Gymnastics", 
                 "Programming", 
                 "Art", 
-                "History", 
-                "Data-Science" 
+                "History"
             };
 
         public static void PrintAvailableSubjects()

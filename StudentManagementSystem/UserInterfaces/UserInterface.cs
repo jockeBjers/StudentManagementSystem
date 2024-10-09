@@ -21,7 +21,7 @@ namespace StudentManagementSystem.UserInterfaces
 
         public void Menu()
         {
-           
+
             bool exit = false;
             while (!exit)
             {
@@ -34,11 +34,11 @@ namespace StudentManagementSystem.UserInterfaces
                 switch (choice)
                 {
                     case "1":
-                        var studentInterface = new StudentInterface(studentManager);
+                        StudentInterface studentInterface = new(studentManager);
                         studentInterface.Menu();
                         break;
                     case "2":
-                        var teacherInterface = new TeacherInterface(teacherManager);
+                        TeacherInterface teacherInterface = new(teacherManager);
                         teacherInterface.Menu();
                         break;
                     case "3":

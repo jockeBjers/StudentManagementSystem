@@ -12,6 +12,7 @@ namespace StudentManagementSystem.UserInterfaces
     public class StudentInterface
     {
         private StudentManager studentManager;
+
         public StudentInterface(StudentManager studentManager)
         {
             this.studentManager = studentManager;
@@ -70,9 +71,7 @@ namespace StudentManagementSystem.UserInterfaces
                     Console.ReadLine();
                     break;
                 case 3:
-                    Subject.PrintAvailableSubjects(); // prints out available subjects to search from.
-                    string selectedSubject = InputHelper.GetUserInput<string>("Enter the subject you want to see: ");
-                    studentManager.PrintStudentsBySubject(selectedSubject); // prints out the chosen subject
+                    studentManager.PrintStudentsBySubject(); // prints out the chosen subject
                     break;
                 default:
                     Console.WriteLine("Invalid choice. Please try again.");
@@ -93,7 +92,7 @@ namespace StudentManagementSystem.UserInterfaces
             studentManager.AddStudent(newStudent);
             Console.WriteLine("Student added successfully.");
 
-            // Ask if the user wants to add subjects
+            // To add subjects
             while (true)
             {
                 string addSubject = InputHelper.GetUserInput<string>("Do you want to add a subject for this student? (y/n): ");
@@ -102,7 +101,6 @@ namespace StudentManagementSystem.UserInterfaces
                     string subject = InputHelper.GetUserInput<string>("Enter subject name: ");
                     newStudent.AddSubject(subject);
 
-                    // Ask for the grade for the added subject
                     int grade = InputHelper.GetUserInput<int>("Enter grade for this subject (1-100):");
                     newStudent.SetGrade(subject, grade); // Set the grade for the subject
                 }
@@ -138,7 +136,7 @@ namespace StudentManagementSystem.UserInterfaces
                 switch (option)
                 {
                     case "1":
-                        ChangeGrade(student);  // change grade in subjects
+                        ChangeSubjectAndGrade(student);  // change grade in subjects
                         break;
                     case "2":
                         studentManager.RemoveStudentById(studentID);  // remove student
@@ -154,8 +152,8 @@ namespace StudentManagementSystem.UserInterfaces
             }
         }
 
-        // To add, ability to add subjects and remove, similar as for teachers
-        private static void ChangeGrade(Student student)
+        // to add, alter and remove subjects and grades
+        private static void ChangeSubjectAndGrade(Student student)
         {
             Subject.PrintAvailableSubjects();
 
@@ -170,24 +168,22 @@ namespace StudentManagementSystem.UserInterfaces
                 if (Subject.AvailableSubjects.Contains(subjectInput))
                 {
 
-                    // Check if the subject is already in the teacher's subjects list and remove it if so. 
+                    // Check if the subject is already in the student subjects list
                     if (student.Subjects.Contains(subjectInput))
                     {
                         Console.WriteLine($"{subjectInput} is already assigned to the student.");
 
                         string action = InputHelper.GetUserInput<string>("Do you want to 1. update grade or 2. remove the subject?");
 
-                        if (action == "1")
-                        {
-                            // Update grade
+                        if (action == "1") // change grade in the found subject
+                        {  
                             int newGrade = InputHelper.GetUserInput<int>("Enter new grade (1-100):");
                             student.SetGrade(subjectInput, newGrade); // Update grade
                             Console.WriteLine("Grade updated successfully.");
                         }
-                        else if (action == "2")
+                        else if (action == "2")  // Remove the subject and grade 
                         {
-                            // Remove the subject and associated grade
-                            student.RemoveSubject(subjectInput); // Use the RemoveSubject method
+                            student.RemoveSubject(subjectInput);  
                             Console.WriteLine($"{subjectInput} removed successfully.");
                         }
                         else

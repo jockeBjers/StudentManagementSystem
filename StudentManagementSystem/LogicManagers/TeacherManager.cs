@@ -30,7 +30,7 @@ public class TeacherManager
 
     public void AddTeacher(Teacher teacher)
     {
-        // Try to add the teacher to the dictionary, else print a message that the ID already exists
+        // Try to add the teacher to the dictionary, else print a message that the ID already exists(shouldn't happen)
         if (teachers.TryAdd(teacher.TeacherID, teacher))
         {
             Console.WriteLine($"{teacher} added successfully.");
@@ -43,7 +43,7 @@ public class TeacherManager
 
     public void RemoveTeacherById(string teacherID)
     {
-        if (teachers.Remove(teacherID))
+        if (teachers.Remove(teacherID)) // If ID is found, will be deleted
         {
             Console.WriteLine("Teacher removed successfully.");
         }
@@ -55,7 +55,7 @@ public class TeacherManager
 
     public Teacher? GetTeacherById(string teacherID)
     {
-        if (teachers.TryGetValue(teacherID, out var teacher))  // for searching for teacher to update
+        if (teachers.TryGetValue(teacherID, out var teacher))  // search for teacher to update
         {
             return teacher;
         }
@@ -66,7 +66,7 @@ public class TeacherManager
         }
     }
 
-    public List<Teacher> GetTeachersBySubject(string subject)
+    public List<Teacher> GetTeachersBySubject(string subject) // To use in the StudentManager to show each subjects teacher
     {
         return teachers.Values
             .Where(t => t.Subjects.Contains(subject))
@@ -113,5 +113,4 @@ public class TeacherManager
             Console.WriteLine($"An unexpected error occurred: {ex.Message}");
         }
     }
-
 }

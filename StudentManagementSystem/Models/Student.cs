@@ -19,19 +19,16 @@ namespace StudentManagementSystem.Models
         public Dictionary<string, int> SubjectGrades { get; set; } = new Dictionary<string, int>();
         public List<string> Subjects { get; set; } = new List<string>();
 
-
         public Student() : base()
         {
             Subjects = new List<string>();
             SubjectGrades = new Dictionary<string, int>();
         }
 
-        // Constructor for creating a new student
         public Student(string firstName, string lastName, int age, string studentID, params string[] subjects)
         : base(firstName, lastName, age)
         {
-
-            StudentID = studentID; // Assign ID from the constructor
+            StudentID = studentID; 
             existingIDs.Add(StudentID); // Add the ID to the list of existing IDs
             Subjects = new List<string>(subjects);
             foreach (var subject in subjects)

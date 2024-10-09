@@ -7,6 +7,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Net.Http.Json;
 using StudentManagementSystem.Models;
+using StudentManagementSystem.UserInterfaces;
 
 namespace StudentManagementSystem.LogicManagers
 {
@@ -76,7 +77,7 @@ namespace StudentManagementSystem.LogicManagers
             Console.WriteLine("All Subjects:");
             foreach (var subject in allSubjects)
             {
-                // Get the teacher of this subject from TeacherManager
+                // Get the teacher of the subjects from TeacherManager
                 var teachersForSubject = teacherManager.GetTeachersBySubject(subject);
 
                 foreach (var teacher in teachersForSubject)
@@ -104,12 +105,15 @@ namespace StudentManagementSystem.LogicManagers
             }
         }
 
-        public void PrintStudentsBySubject(string subject)
+        public void PrintStudentsBySubject()
         {
+            Subject.PrintAvailableSubjects(); // prints out available subjects to search from.
+            string subject = InputHelper.GetUserInput<string>("Enter the subject you want to see: ");
+
             // Get the teacher for this subject from TeacherManager
             var teachersForSubject = teacherManager.GetTeachersBySubject(subject);
 
-            //  students in the specified subject
+            //  students in the subject sorted by grade
             var studentsInSubject = students.Values
                 .Where(s => s.SubjectGrades.ContainsKey(subject))
                 .OrderByDescending(s => s.GetGrade(subject))
