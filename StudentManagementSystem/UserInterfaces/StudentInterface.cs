@@ -93,6 +93,17 @@ namespace StudentManagementSystem.UserInterfaces
             Console.WriteLine("Student added successfully.");
 
             // To add subjects
+            AddSubjectToStudent(newStudent);
+
+            Console.WriteLine("New Student Added!");
+            Console.WriteLine(newStudent.ToString() + "\n");
+            newStudent.PrintSubjectsAndGrades();
+            Console.WriteLine("Press to continue");
+            Console.ReadLine();
+        }
+
+        private void AddSubjectToStudent(Student newStudent)
+        {
             while (true)
             {
                 string addSubject = InputHelper.GetUserInput<string>("Do you want to add a subject for this student? (y/n): ");
@@ -113,12 +124,6 @@ namespace StudentManagementSystem.UserInterfaces
                     Console.WriteLine("Invalid input. Please enter 'y' or 'n'.");
                 }
             }
-            Console.WriteLine("New Student Added!" +
-                "");
-            Console.WriteLine(newStudent.ToString() + "\n");
-            newStudent.PrintSubjectsAndGrades();
-            Console.WriteLine("Press to continue");
-            Console.ReadLine();
         }
 
         private void SearchStudent()

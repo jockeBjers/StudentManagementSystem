@@ -392,5 +392,21 @@
     "FirstName": "Linnea",
     "LastName": "Hurtig",
     "Age": 14
+  },
+  "7241": {
+    "StudentID": "7241",
+    "SubjectGrades": {
+      "Math": 55,
+      "English": 76,
+      "Art": 77
+    },
+    "Subjects": [
+      "Math",
+      "English",
+      "Art"
+    ],
+    "FirstName": "Maja",
+    "LastName": "Alfredsson",
+    "Age": 14
   }
 }
